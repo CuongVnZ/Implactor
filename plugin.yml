@@ -1,0 +1,74 @@
+---
+name: Implactor
+version: IR-1.0
+api:
+- 3.0.0
+- 3.1.0
+- 4.0.0
+main: Implactor\Implade
+description: A plugin which has a features for Minecraft Bedrock
+author: Zadezter
+website: https://github.com/ImpladeDeveloped
+
+commands:
+    bot:
+        description: Spawn the bot human!
+        permission: implactor.bot
+    icast:
+        description: Broadcast your message to all online players!
+        permission: implactor.broadcast
+    ibook:
+        description: Get a book of Implactor with a command!
+        permission: implactor.book
+    vision:
+        description: Use the vision mode with UI mode!
+        permission: implactor.vision
+    playervisible:
+        description: Use the player visibility with UI mode!
+        permission: implactor.playervisibility
+    ihelp:
+         description: Check all Implactor command list available!
+         permission: implactor.command.help
+    iabout:
+         description: About Implactor!
+         permission: implactor.command.about
+    wild:
+         description: Teleport to random spot of wilderness!
+         permission: implactor.wild
+    ping:
+         description: Ping your connection in-game server!
+         permission: implactor.ping
+         
+permissions:
+    implactor.*:
+     default: op
+     description: "Allows all access to all Implactor commands"
+    implactor.wild:
+     description: "Allow players to random teleporting to wilderness"
+     default: true
+    implactor.ping:
+     description: "Allow players to ping their connection in-game server"
+     default: true
+    implactor.playervisibility:
+     description: "Allow players to show or hide player visibility"
+     default: true
+    implactor.bot:
+     description: "Allow OP staff members to spawn their own bot human"
+     default: op
+    implactor.broadcast:
+     description: "Allow OP staff members to broadcast their messages to all online players"
+     default: op
+    implactor.book:
+     description: "Allow players to get a book with a command"
+     default: true
+    implactor.command.about:
+     description: "Allow players to see about Implactor plugin"
+     default: true
+    implactor.command.help:
+     description: "Allow players to see the command list"
+     default: true
+    implactor.vision:
+     description: "Allow OP staff members to use the vision mode"
+     default: op
+
+...
