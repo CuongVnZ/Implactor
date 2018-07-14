@@ -3,5 +3,5 @@ branches:
 - Implade
 projects:
   Implactor:
-    path: ""
+    path: "/"
 ...
