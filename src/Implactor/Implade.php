@@ -415,7 +415,7 @@ class Implade extends PluginBase implements Listener {
 		if(strtolower($command->getName()) == "vision") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.vision")){
-		    $this->visionUI($sender);
+		    $this->visionModeUI($sender);
 		}else{
             $sender->sendMessage("§cYou have no permission allowed to use §ePlayer visibility §ccommand§e!");
             return false;
@@ -429,7 +429,7 @@ class Implade extends PluginBase implements Listener {
 		if(strtolower($command->getName()) == "pvisible") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.playervisibility")){
-		    $this->visibleUI($sender);
+		    $this->visiblePlayerUI($sender);
 		}else{
             $sender->sendMessage("§cYou have no permission allowed to use §ePlayer visibility §ccommand§e!");
             return false;
@@ -442,7 +442,7 @@ class Implade extends PluginBase implements Listener {
            }
 	  }
 	    
-	    public function visibleUI($sender): void{
+	    public function visiblePlayerUI($sender): void{
 		    $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
             $form = $api->createSimpleForm(function (Player $sender, $data){
             $result = $data;
@@ -476,7 +476,7 @@ class Implade extends PluginBase implements Listener {
          $form->sendToPlayer($sender);
      }
      
-        public function visionUI($sender): void{
+        public function visionModeUI($sender): void{
 		    $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
             $form = $api->createSimpleForm(function (Player $sender, $data){
             $result = $data;
