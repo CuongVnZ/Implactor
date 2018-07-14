@@ -1,6 +1,6 @@
 ---
 name: Implactor
-version: IR-1.0
+version: IR-1.5
 api:
 - 3.0.0
 - 3.1.0
