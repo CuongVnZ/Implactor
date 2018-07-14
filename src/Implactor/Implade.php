@@ -102,6 +102,7 @@ class Implade extends PluginBase implements Listener {
                 }
             }catch(\Exception $ex){
                 $this->getLogger()->warning("Unable to checking the update!");
+             }
        }
  
         public function onEnable(): void{
@@ -141,6 +142,7 @@ class Implade extends PluginBase implements Listener {
 			   $ev->setCancelled(true);
 			}
 	   }
+	
 	    public function onLogin(PlayerLoginEvent $ev): void{
 		    $player = $ev->getPlayer();
 		    $player->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
