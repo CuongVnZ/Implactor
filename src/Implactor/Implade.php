@@ -76,7 +76,6 @@ use pocketmine\entity\Creature;
 use pocketmine\entity\Human;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\event\Listener;
 use pocketmine\block\Block;
 use pocketmine\nbt\NBT;
 use pocketmine\item\Item;
