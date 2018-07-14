@@ -62,6 +62,7 @@ class DeathParticles extends Task {
 			$z = cos($yaw) + $center->z;
 			$deathone->setComponents($x, $y, $z);
 			$death->addParticle($deathone);
+                }
 		$r = rand(1,300);
 		$g = rand(1,300);
 		$b = rand(1,300);
