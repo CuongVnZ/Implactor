@@ -144,7 +144,7 @@ class Implade extends PluginBase implements Listener {
 	
 	    public function onLogin(PlayerLoginEvent $ev): void{
 		    $player = $ev->getPlayer();
-		    $player->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
+		    $player->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn();
 	  }
 	
 		public function onJoin(PlayerJoinEvent $ev): void{
@@ -208,7 +208,7 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTag("§7[§cDeath§7]§r\n§f" .$player->getName(). "");
 		   $death->setNameTagAlwaysVisible(false);
 		   $death->spawnToAll();
-		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1600);
+		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1300);
 	  }
 	
 		public function onChat(PlayerChatEvent $ev): void{
@@ -250,7 +250,7 @@ class Implade extends PluginBase implements Listener {
 		public function onMotion(EntityMotionEvent $ev): void{
 			$entity = $ev->getEntity();
             if($entity instanceof Living && !$entity instanceof Player){
-                $event->setCancelled(true);
+                $ev->setCancelled(true);
                 }
 	  }
 	
@@ -307,7 +307,7 @@ class Implade extends PluginBase implements Listener {
 		 if($sender instanceof Player){
 		 if($sender->hasPermission("implactor.book")){
 			 $this->getBook($sender);
-			 $sender->sendMessage("§6You has given a §aBook §bof §cImplactor§6!\n§fRead inside the book, ". IR::AQUA. $sender->getPlayer()->getName(). "§f!");
+			 $sender->sendMessage("§6You has given a §aBook §bof §cImplactor§6!\n§fRead inside the book, §b". $sender->getPlayer()->getName(). "§f!");
              $sender->getLevel()->addSound(new Book($sender));
 		  }else{
 			 $sender->sendMessage("§cYou have no permission allowed to use §dBook §ccommand§e!");
