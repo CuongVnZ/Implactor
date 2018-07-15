@@ -64,7 +64,7 @@ use pocketmine\level\Position;
 use pocketmine\level\sound\EndermanTeleportSound as Join;
 use pocketmine\level\sound\BlazeShootSound as Quit;
 use pocketmine\level\sound\GhastSound as DeathOne;
-use pocketmine\level\sound\AnvilCrashSound as DeathTwo;
+use pocketmine\level\sound\AnvilBreakSound as DeathTwo;
 use pocketmine\level\sound\DoorBumpSound as Bot;
 use pocketmine\level\sound\FizzSound as Book;
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
@@ -249,7 +249,7 @@ class Implade extends PluginBase implements Listener {
 	  }
 	
 		public function onMotion(EntityMotionEvent $ev): void{
-			$entity = $event->getEntity();
+			$entity = $ev->getEntity();
             if($entity instanceof Living && !$entity instanceof Player){
                 $event->setCancelled(true);
                 }
@@ -274,8 +274,7 @@ class Implade extends PluginBase implements Listener {
 				}
 				$this->summonBot($sender, $args[0]);
 				$sender->sendMessage("§eYou have summoned a §bbot §ewith named§c§r " . $args[0]);
-				$sender->sendMessage("\n§b- §aRemember, this bot human's weakness is §l§6FIRE §r§aor §l§6LAVA§r!");
-				$sender->getServer()->broadcastMessage("§7[§bBot§7]§f ". IR::GOLD . $sender->getPlayer()->getName() . IR::WHITE ." has summoned a §bbot §fwith named §d" .$args[0]. "§f!");
+				$sender->getServer()->broadcastMessage("§7[§bBot§7]§f §e". $sender->getPlayer()->getName() ."§f has summoned a §bbot §fwith named §d" .$args[0]. "§f!");
                 $sender->getLevel()->addSound(new Bot($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
@@ -338,7 +337,6 @@ class Implade extends PluginBase implements Listener {
 		if(strtolower($command->getName()) == "wild") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.wild")){
-			$sender->getLevel()->addSound(new BlazeShootSound($sender));
 			$x = rand(1,999);
             $y = 128;
             $z = rand(1,999);
@@ -471,10 +469,10 @@ class Implade extends PluginBase implements Listener {
             }
          });
          $form->setTitle("§l§aImpl§6actor");
-         $form->setContent("§e> §0Player Visibility");
-         $form->addButton("§a§lShow Players", 0);
-         $form->addButton("§c§lHide Players", 1);
-         $form->addButton("§0§lClose", 2);
+         $form->setContent("§f> §0Player Visibility");
+         $form->addButton("§aShow Players", 0);
+         $form->addButton("§cHide Players", 1);
+         $form->addButton("§0Close", 2);
          $form->sendToPlayer($sender);
      }
      
@@ -499,10 +497,10 @@ class Implade extends PluginBase implements Listener {
             }
          });
          $form->setTitle("§l§aImpl§6actor");
-         $form->setContent("§e> §0Vision Mode");
-         $form->addButton("§a§lEnable", 0);
-         $form->addButton("§c§lDisable", 1);
-         $form->addButton("§0§lClose", 2);
+         $form->setContent("§f> §0Vision Mode");
+         $form->addButton("§aEnable", 0);
+         $form->addButton("§cDisable", 1);
+         $form->addButton("§0Close", 2);
          $form->sendToPlayer($sender);
      }
      
