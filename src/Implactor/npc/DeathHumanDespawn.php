@@ -39,7 +39,7 @@ class DeathHumanDespawn extends Task {
 	/** @var Player $player */
 	private $player;
 	
-	public function __construct(MainIR $plugin, Entity $entity, Player $player){
+	public function __construct(Implade $plugin, Entity $entity, Player $player){
         $this->plugin = $plugin;
 		$this->entity = $entity;
 		$this->player = $player;
