@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace Implactor;
 
 //* Implactor *//
-use Implactor\tasks\SpawnTask;
 use Implactor\tasks\AntiAdvertising;
 use Implactor\tasks\AntiSwearing;
 use Implactor\tasks\AntiCaps;
@@ -76,6 +75,8 @@ use pocketmine\entity\Creature;
 use pocketmine\entity\Human;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\Server;
+use pocketmine\Player;
 use pocketmine\block\Block;
 use pocketmine\nbt\NBT;
 use pocketmine\item\Item;
