@@ -70,12 +70,11 @@ class BotListener implements Listener {
 					$pk->entityRuntimeId = $entity->getId();
 					$pk->action = AnimatePacket::ACTION_SWING_ARM;
 					$damager->dataPacket($pk);
-					$damager->sendMessage("§7[§bBot§7] §eOuch, stop!");
 				}
 		}
 	}
 
-    public function onPlayerMove(PlayerMoveEvent $ev) : void{
+    public function onMove(PlayerMoveEvent $ev) : void{
     		$player = $ev->getPlayer();
     		$from = $ev->getFrom();
     		$to = $ev->getTo();
