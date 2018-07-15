@@ -22,7 +22,7 @@ commands:
     vision:
         description: Use the vision mode with UI mode!
         permission: implactor.vision
-    playervisible:
+    pvisible:
         description: Use the player visibility with UI mode!
         permission: implactor.playervisibility
     ihelp:
