@@ -167,10 +167,10 @@ class Implade extends PluginBase implements Listener {
 			$player->removeEffect(Effect::SPEED);
 			$player->removeEffect(Effect::JUMP_BOOST);
 		if($player->isOP()){
-			$ev->setJoinMessage("§7(§6STAFF§7) §l§8[§a+§8]§r §a{$player->getName()}");
+			$ev->setQuitMessage("§7(§6STAFF§7) §l§8[§c-§8]§r §c{$player->getName()}");
 			$player->getLevel()->addSound(new Quit($player));
          }else{
-			$ev->setJoinMessage("§l§8[§a+§8]§r §a{$player->getName()}");
+			$ev->setQuitMessage("§l§8[§c-§8]§r §c{$player->getName()}");
 			$player->getLevel()->addSound(new Quit($player));
 			}
 	  }
@@ -395,12 +395,12 @@ class Implade extends PluginBase implements Listener {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.command.about")){
 			$sender->sendMessage("§8---=========================---");
-			$sender->sendMessage(" §l§aImpl§6actor");
+			$sender->sendMessage("§8- §l§aImpl§6actor");
 			$sender->sendMessage("§8- §cAuthor: §fZadezter");
 			$sender->sendMessage("§8- §aTeam: §fImpladeDeveloped");
 			$sender->sendMessage("§8- §bCreated: §f23 §eMay §f2018");
-		    $sender->sendMessage("§8- §6API: §f3.0.2");
-		    $sender->sendMessage("§8- §dRemaked: §f14 §eJuly 2018");
+		    $sender->sendMessage("§8- §6API: §f3.0.0, 3.1.0, 4.0.0");
+		    $sender->sendMessage("§8- §dRemaked: §f14 §eJuly §f2018");
 			$sender->sendMessage("§8---=========================---");
 		}else{
 			$sender->sendMessage("");
