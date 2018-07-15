@@ -38,6 +38,8 @@ use pocketmine\event\entity\{
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\Listener;
 use pocketmine\utils\TextFormat as IR;
+use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
 
 use Implactor\npc\bot\BotTask;
 use Implactor\npc\bot\BotHuman;
@@ -56,6 +58,7 @@ class BotListener implements Listener {
 
 		if($entity instanceof BotHuman){
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotTask($this->plugin, $entity), 200);
+			$entity->addEffect(new EffectInstance(Effect::getEffect(Effect::REGENERATION), 5, 1, false));
 		}
 	}
 
@@ -70,24 +73,26 @@ class BotListener implements Listener {
 					$pk->entityRuntimeId = $entity->getId();
 					$pk->action = AnimatePacket::ACTION_SWING_ARM;
 					$damager->dataPacket($pk);
+					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 8, 1, false));
+                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 8, 1, false));
 				}
 		}
 	}
 
-    public function onMove(PlayerMoveEvent $ev) : void{
+    public function onPlayerMove(PlayerMoveEvent $ev) : void{
     		$player = $ev->getPlayer();
     		$from = $ev->getFrom();
     		$to = $ev->getTo();
-    		$distance = 7;
+    		$botdistance = 7;
 
     		if($from->distance($to) < 0.1) return;
-    		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
+    		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($botdistance, $botdistance, $botdistance), $player) as $entity){
     	
             if($entity instanceof BotHuman){
                 $pk = new MoveEntityPacket();
                 $v = new Vector2($entity->x, $entity->z);
                 $yaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
-            	$pitch = ((atan2($v->distance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
+            	$pitch = ((atan2($v->botdistance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
                 $pk->entityRuntimeId = $entity->getId();
                 $pk->position = $entity->asVector3()->add(0, 1.5, 0);
                 $pk->yaw = $yaw;
