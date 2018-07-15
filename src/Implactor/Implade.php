@@ -105,7 +105,7 @@ class Implade extends PluginBase implements Listener {
        }
  
         public function onEnable(): void{
-        	$this->getLogger->info("Implactor is currently now online! Thanks for using this plugin!");
+        	$this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
             $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 13);
             //* Events *//
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -131,7 +131,7 @@ class Implade extends PluginBase implements Listener {
       }
     
        public function onDisable(): void{
-       	$this->getLogger->notice("Oh no, Implactor has self-destructed it's system!");
+       	$this->getLogger()->notice("Oh no, Implactor has self-destructed it's system!");
       }
       
        public function onPreLogin(PlayerPreLoginEvent $ev) : void{
