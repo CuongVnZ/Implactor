@@ -73,6 +73,7 @@ use pocketmine\entity\Effect;
 use pocketmine\entity\EffectInstance;
 use pocketmine\entity\Creature;
 use pocketmine\entity\Human;
+use pocketmine\entity\Living;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
@@ -505,9 +506,8 @@ class Implade extends PluginBase implements Listener {
      
 		public function getBook(Player $player): void{
 			$ibook = Item::get(Item::WRITTEN_BOOK, 0, 1);
-		    $ibook->setTitle(IR::GREEN . IR::UNDERLINE . "Book §bof §cImplactor");
+		    $ibook->setTitle("§l§aBook §bof §cImplactor");
 		    $ibook->setPageText(0, "§4We will add more informations soon.");
-		    $ibook->setPageText(1, " ");
 		    $ibook->setAuthor("§l§eZadezter");
 		    $player->getInventory()->addItem($ibook);
 	  }
