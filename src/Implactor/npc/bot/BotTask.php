@@ -28,6 +28,7 @@ use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
 use Implactor\Implade;
 use Implactor\npc\bot\BotHuman;
+use Implactor\npc\bot\BotListener;
 
 class BotTask extends Task {
 	
@@ -45,9 +46,9 @@ class BotTask extends Task {
 		if($entity instanceof BotHuman){
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotSneakTask($this->plugin, $entity), 40);
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotUnsneakTask($this->plugin, $entity), 40);
-            $this->plugin->getScheduler()->scheduleRepeatingTask(new BotJumpTask($this->plugin, $entity), 95);
+                        $this->plugin->getScheduler()->scheduleRepeatingTask(new BotJumpTask($this->plugin, $entity), 95);
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotWalkingTask($this->plugin, $entity), 90);
-			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotParticle($this->plugin, $entity), 10);
+			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotParticle($this->plugin, $entity), 5);
             }
 	     }
       }
