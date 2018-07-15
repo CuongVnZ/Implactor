@@ -323,7 +323,7 @@ class Implade extends PluginBase implements Listener {
 		if(strtolower($command->getName()) == "ping") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.ping")){
-			$sender->sendMessage($sender->getPlayer()->getName(). "§a's ping status: §7[§d{$sender->getPing} §ems§7]");
+			$sender->sendMessage($sender->getPlayer()->getName(). "§a's ping status: §7[§d{$sender->getPing()}§ems§7]");
          }else{
 			$sender->sendMessage("§cYou have no permission allowed to use §aPing §ccommand§e!");
 			return false;
