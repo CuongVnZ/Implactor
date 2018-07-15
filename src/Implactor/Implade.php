@@ -127,7 +127,6 @@ class Implade extends PluginBase implements Listener {
           $this->formapi = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
            if(is_null($this->formapi)){
              $this->getLogger()->warning("FormAPI not found in plugin folder! Disabled 2 UI commands...");
-             $this->getPluginLoader()->disablePlugin($this);
             }
       }
     
