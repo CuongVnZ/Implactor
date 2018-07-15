@@ -14,12 +14,16 @@ This plugin is licensed under GNU General Public License v3.0!<br>
 It is free to use, copyleft license for software and other<br>
 kinds of works.
 
-# Returned
-This plugin has returned on July 14 with some features has removed!<br>
-Also, brand new 2 UI commands has added and require **FormAPI** plugin!
+# Note
+This plugin repo has been removed from Github, maybe I'm not wrong, it's a date of **4 July 2018**,
+because we've found a hitting player issue and trying to fix as we can!<br>
+<br>
+We added back on **14 July 2018** with a some of features has removed,<br>
+Brand new 2 UI commands - required **[FormAPI](http://github.com/jojoe77777/FormAPI)** plugin and<br>
+more we had to test.
 
 # Credits
-This plugin was created on ***23 May 2018***<br>
+This plugin was officialy created on ***23 May 2018***<br>
 and was authored and owned by [Zadezter](http://github.com/Zadezter).
 
 Team: [ImpladeDeveloped](http://github.com/ImpladeDeveloped/Implactor)<br>
