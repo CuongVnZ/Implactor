@@ -144,7 +144,7 @@ class Implade extends PluginBase implements Listener {
 	
 	    public function onLogin(PlayerLoginEvent $ev): void{
 		    $player = $ev->getPlayer();
-		    $player->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn();
+		    $player->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
 	  }
 	
 		public function onJoin(PlayerJoinEvent $ev): void{
@@ -307,7 +307,7 @@ class Implade extends PluginBase implements Listener {
 		 if($sender instanceof Player){
 		 if($sender->hasPermission("implactor.book")){
 			 $this->getBook($sender);
-			 $sender->sendMessage("§6You has given a §aBook §bof §cImplactor§6!\n§fRead inside the book, §b". $sender->getPlayer()->getName(). "§f!");
+			 $sender->sendMessage("§6You has given a §aBook §bof §cImplactor§6!\n§fRead inside the book, §b". $sender->getPlayer()->getName() ."§f!");
              $sender->getLevel()->addSound(new Book($sender));
 		  }else{
 			 $sender->sendMessage("§cYou have no permission allowed to use §dBook §ccommand§e!");
