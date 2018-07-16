@@ -48,7 +48,8 @@ class BotTask extends Task {
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotUnsneakTask($this->plugin, $entity), 40);
                         $this->plugin->getScheduler()->scheduleRepeatingTask(new BotJumpTask($this->plugin, $entity), 95);
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotWalkingTask($this->plugin, $entity), 90);
-			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotParticle($this->plugin, $entity), 20);
+			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotParticle($this->plugin, $entity), 22);
+                       // $this->plugin->getScheduler()->scheduleRepeatingTask(new BotWingParticle($this->plugin, $entity), 22);
             }
 	     }
       }
