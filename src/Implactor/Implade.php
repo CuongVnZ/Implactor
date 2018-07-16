@@ -293,7 +293,7 @@ class Implade extends PluginBase implements Listener {
 			   $sender->sendMessage("§8§l(§6!§8)§r §cCommand usage§8:§r§7 /icast <message>");
 			   return false;
 			  }
-			   $sender->getServer()->broadcastMessage("§7[§bImplacast§7] §b". implode(" ", $args));
+			   $sender->getServer()->broadcastMessage("§7[§bImplacast§7] §b" implode(" ", $args));
 			}else{
 				$sender->sendMessage("§cYou have no permission allowed to use §eImplacast §ccommand§e!");
 				return false;
