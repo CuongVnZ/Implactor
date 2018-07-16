@@ -470,9 +470,9 @@ class Implade extends PluginBase implements Listener {
          });
          $form->setTitle("§l§aImpl§6actor");
          $form->setContent("§f> §0Player Visibility");
-         $form->addButton("§aShow Players", 0);
-         $form->addButton("§cHide Players", 1);
-         $form->addButton("§0Close", 2);
+         $form->addButton("§aShow Players", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
+         $form->addButton("§cHide Players", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
+         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
@@ -498,9 +498,9 @@ class Implade extends PluginBase implements Listener {
          });
          $form->setTitle("§l§aImpl§6actor");
          $form->setContent("§f> §0Vision Mode");
-         $form->addButton("§aEnable", 0);
-         $form->addButton("§cDisable", 1);
-         $form->addButton("§0Close", 2);
+         $form->addButton("§aEnable", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
+         $form->addButton("§cDisable", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
+         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
