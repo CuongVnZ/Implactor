@@ -58,8 +58,7 @@ class BotListener implements Listener {
 
 		if($entity instanceof BotHuman){
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotTask($this->plugin, $entity), 200);
-			$entity->addEffect(new EffectInstance(Effect::getEffect(Effect::REGENERATION), 6, 1, true));
-		}
+                   }
 	}
 
 	public function onSwing(EntityDamageEvent $ev): void{
@@ -73,8 +72,8 @@ class BotListener implements Listener {
 					$pk->entityRuntimeId = $entity->getId();
 					$pk->action = AnimatePacket::ACTION_SWING_ARM;
 					$damager->dataPacket($pk);
-					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 8, 1, true));
-                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 8, 1, true));
+					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true));
+                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
 				}
 		}
 	}
