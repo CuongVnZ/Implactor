@@ -453,30 +453,30 @@ class Implade extends PluginBase implements Listener {
             if($result == null){
             }
             switch ($result){
-            case 1:
+            case 0:
             $sender->addTitle("§7§l[§aON§7]", "§aEnabled the player visibility!");
             unset($this->visibility[array_search($sender->getName(), $this->visibility)]);
 			foreach ($this->getServer()->getOnlinePlayers() as $visibler) {
 		    $sender->showplayer($visibler);
 		    }
             break;
-            case 2:
+            case 1:
             $sender->addTitle("§7§l[§cOFF§7]", "§eDisabled the player visibility!");
             $this->visibility[] = $sender->getName();
 			foreach ($this->getServer()->getOnlinePlayers() as $visibler) {
 	        $sender->hideplayer($visibler);
 	        }
             break;
-            case 3:
+            case 2:
             $sender->sendMessage("§cClosed the player visible UI mode...");
             break;
             }
          });
          $form->setTitle("§l§aImpl§6actor");
          $form->setContent("§f> §0Player Visibility");
-         $form->addButton("§aShow Players", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
-         $form->addButton("§cHide Players", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
-         $form->addButton("§0Close", 3, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
+         $form->addButton("§aShow Players", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
+         $form->addButton("§cHide Players", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
+         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
@@ -487,24 +487,24 @@ class Implade extends PluginBase implements Listener {
             if($result == null){
             }
             switch ($result){
-            case 1:
+            case 0:
             $sender->addEffect(new EffectInstance(Effect::getEffect(Effect::NIGHT_VISION), 1000000, 254, true));
             $sender->sendMessage("§eYou have §aenabled the §bNight Vision §emode!");
             break;
-            case 2:
+            case 1:
             $sender->removeEffect(Effect::NIGHT_VISION);
             $sender->sendMessage("§eYou have §cdisabled the §bNight Vision §emode!");
             break;
-            case 3:
+            case 2:
             $sender->sendMessage("§cClosed the vision UI mode...");
             break;
             }
          });
          $form->setTitle("§l§aImpl§6actor");
          $form->setContent("§f> §0Vision Mode");
-         $form->addButton("§aEnable", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
-         $form->addButton("§cDisable", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
-         $form->addButton("§0Close", 3, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
+         $form->addButton("§aEnable", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
+         $form->addButton("§cDisable", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
+         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
