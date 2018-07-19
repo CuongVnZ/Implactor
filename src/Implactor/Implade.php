@@ -215,7 +215,7 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTagAlwaysVisible(false);
 		   $death->spawnToAll();
 		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1300);
-                   $sender->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
+                   $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
 	  }
 	
 		public function onChat(PlayerChatEvent $ev): void{
