@@ -84,7 +84,7 @@ use pocketmine\item\Item;
 use pocketmine\math\Vector3;
 
 //* Others *//
-use jojoe7777\FormAPI;
+use jojoe77777\FormAPI;
 
 class Implade extends PluginBase implements Listener {
 	
@@ -150,6 +150,7 @@ class Implade extends PluginBase implements Listener {
 	
 		public function onJoin(PlayerJoinEvent $ev): void{
 			$player = $ev->getPlayer();
+	        $player->setGamemode(Player::SURVIVAL);
 			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::SPEED), 1000000, 1, false));
 			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::JUMP_BOOST), 1000000, 1, false));
 			$player->sendMessage("§7[§aI§6R§7]§r §bThis server is running the Implactor plugin!");
@@ -178,9 +179,10 @@ class Implade extends PluginBase implements Listener {
 		public function onRespawn(PlayerRespawnEvent $ev): void{
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
-	                $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
+	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
 			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::SPEED), 1000000, 1, false));
 			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::JUMP_BOOST), 1000000, 1, false));
+		    $player->setGamemode(Player::SURVIVAL);
 			
 	  }
 	
@@ -473,10 +475,10 @@ class Implade extends PluginBase implements Listener {
             }
          });
          $form->setTitle("§l§aImpl§6actor");
-         $form->setContent("§f> §0Player Visibility");
-         $form->addButton("§aShow Players", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
-         $form->addButton("§cHide Players", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
-         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
+         $form->setContent("§f> §0Player Visibility\n§eShow or hide their visibility!");
+         $form->addButton("§aSHOW", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
+         $form->addButton("§4HIDE", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
+         $form->addButton("§0CLOSE", 3, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
@@ -501,10 +503,10 @@ class Implade extends PluginBase implements Listener {
             }
          });
          $form->setTitle("§l§aImpl§6actor");
-         $form->setContent("§f> §0Vision Mode");
-         $form->addButton("§aEnable", 0, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
-         $form->addButton("§cDisable", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
-         $form->addButton("§0Close", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
+         $form->setContent("§f§l> §r§0Vision Mode\n§eGet some light while on night mode!");
+         $form->addButton("§aENABLE", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
+         $form->addButton("§4DISABLE", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
+         $form->addButton("§0CLOSE", 3, "https://cdn.discordapp.com/attachments/442624759985864714/468316717169508362/Logopit_1531725791540.png");
          $form->sendToPlayer($sender);
      }
      
