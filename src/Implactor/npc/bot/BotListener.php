@@ -83,7 +83,7 @@ class BotListener implements Listener {
     		$to = $ev->getTo();
     		$botdistance = 7;
 
-    		if($from->distance($to) < 0.1) return;
+    		if($from->botdistance($to) < 0.1) return;
     		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($botdistance, $botdistance, $botdistance), $player) as $entity){
     	
             if($entity instanceof BotHuman){
