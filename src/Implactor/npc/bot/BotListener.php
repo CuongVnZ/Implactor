@@ -81,16 +81,16 @@ class BotListener implements Listener {
     		$player = $ev->getPlayer();
     		$from = $ev->getFrom();
     		$to = $ev->getTo();
-    		$botdistance = 7;
+                $distance = 7;
 
-    		if($from->botdistance($to) < 0.1) return;
-    		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($botdistance, $botdistance, $botdistance), $player) as $entity){
+    		if($from->distance($to) < 0.1) return;
+    		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
     	
             if($entity instanceof BotHuman){
                 $pk = new MoveEntityAbsolutePacket();
                 $v = new Vector2($entity->x, $entity->z);
                 $yaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
-            	$pitch = ((atan2($v->botdistance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
+            	$pitch = ((atan2($v->distance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
                 $pk->entityRuntimeId = $entity->getId();
                 $pk->position = $entity->asVector3()->add(0, 1.5, 0);
                 $pk->yaw = $yaw;
