@@ -30,14 +30,13 @@ use pocketmine\math\{
 };
 use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\{
-	AnimatePacket, MovePlayerPacket, MoveEntityPacket
+	AnimatePacket, MovePlayerPacket, MoveEntityAbsolutePacket
 };
 use pocketmine\event\entity\{
 	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
 };
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\Listener;
-use pocketmine\utils\TextFormat as IR;
 use pocketmine\entity\Effect;
 use pocketmine\entity\EffectInstance;
 
@@ -88,7 +87,7 @@ class BotListener implements Listener {
     		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($botdistance, $botdistance, $botdistance), $player) as $entity){
     	
             if($entity instanceof BotHuman){
-                $pk = new MoveEntityPacket();
+                $pk = new MoveEntityAbsolutePacket();
                 $v = new Vector2($entity->x, $entity->z);
                 $yaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
             	$pitch = ((atan2($v->botdistance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
