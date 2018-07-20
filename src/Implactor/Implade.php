@@ -45,7 +45,6 @@ use pocketmine\plugin\Plugin;
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityMotionEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerPreLoginEvent;
 use pocketmine\event\player\PlayerLoginEvent;
@@ -73,7 +72,6 @@ use pocketmine\entity\Effect;
 use pocketmine\entity\EffectInstance;
 use pocketmine\entity\Creature;
 use pocketmine\entity\Human;
-use pocketmine\entity\Living;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
@@ -252,13 +250,6 @@ class Implade extends PluginBase implements Listener {
 				$entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));      
 			}
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
-	  }
-	
-		public function onMotion(EntityMotionEvent $ev): void{
-			$entity = $ev->getEntity();
-            if($entity instanceof Living && !$entity instanceof Player){
-                $ev->setCancelled(true);
-                }
 	  }
 	
 		public function summonBot(Player $player, string $name): void{
