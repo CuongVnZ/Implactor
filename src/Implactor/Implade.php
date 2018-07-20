@@ -148,9 +148,7 @@ class Implade extends PluginBase implements Listener {
 	
 		public function onJoin(PlayerJoinEvent $ev): void{
 			$player = $ev->getPlayer();
-	        $player->setGamemode(Player::SURVIVAL);
-			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::SPEED), 1000000, 1, false));
-			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::JUMP_BOOST), 1000000, 1, false));
+	                $player->setGamemode(Player::SURVIVAL);
 			$player->sendMessage("§7[§aI§6R§7]§r §bThis server is running the Implactor plugin!");
 		if($player->isOP()){
 			$ev->setJoinMessage("§7(§6STAFF§7) §l§8[§a+§8]§r §a{$player->getName()}");
@@ -163,8 +161,6 @@ class Implade extends PluginBase implements Listener {
 	
 		public function onQuit(PlayerQuitEvent $ev): void{
 			$player = $ev->getPlayer();
-			$player->removeEffect(Effect::SPEED);
-			$player->removeEffect(Effect::JUMP_BOOST);
 		if($player->isOP()){
 			$ev->setQuitMessage("§7(§6STAFF§7) §l§8[§c-§8]§r §c{$player->getName()}");
 			$player->getLevel()->addSound(new Quit($player));
@@ -177,10 +173,8 @@ class Implade extends PluginBase implements Listener {
 		public function onRespawn(PlayerRespawnEvent $ev): void{
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
-	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
-			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::SPEED), 1000000, 1, false));
-			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::JUMP_BOOST), 1000000, 1, false));
-		    $player->setGamemode(Player::SURVIVAL);
+	                $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
+		        $player->setGamemode(Player::SURVIVAL);
 			
 	  }
 	
@@ -212,7 +206,7 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTag("§7[§cDeath§7]§r\n§f" .$player->getName(). "");
 		   $death->setNameTagAlwaysVisible(false);
 		   $death->spawnToAll();
-		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1300);
+		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1500);
                    $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
 	  }
 	
