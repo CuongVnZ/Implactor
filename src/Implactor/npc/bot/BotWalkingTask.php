@@ -27,13 +27,12 @@ namespace Implactor\npc\bot;
 use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
-use Implactor\npc\bot\BotHuman;
+
 use Implactor\Implade;
+use Implactor\npc\bot\BotHuman;
 
 class BotWalkingTask extends Task {
 
-	/** @var MainIR $plugin */
-	/** @var Entity $entity */
 	private $plugin, $entity;
 
 	public function __construct(Implade $plugin, Entity $entity){
@@ -44,22 +43,21 @@ class BotWalkingTask extends Task {
 	public function onRun(int $tick): void{
 			$entity = $this->entity;
 			$distance = 0.7;
-
 			if($entity instanceof BotHuman){
 				switch($entity->getDirection()){
-					case 0:
-					$entity->setMotion(new Vector3($distance, 0, 0));
-					break;
-					case 1:
-					$entity->setMotion(new Vector3(0, 0, $distance));
-					break;
-					case 2:
-					$entity->setMotion(new Vector3(-$distance, 0, 0));
-					break;
-					case 3:
-					$entity->setMotion(new Vector3(0, 0, -$distance));
-					break;
-				}
+				case 0:
+				$entity->setMotion(new Vector3($distance, 0, 0));
+				break;
+				case 1:
+				$entity->setMotion(new Vector3(0, 0, $distance));
+				break;
+				case 2:
+				$entity->setMotion(new Vector3(-$distance, 0, 0));
+				break;
+				case 3:
+				$entity->setMotion(new Vector3(0, 0, -$distance));
+				break;
 			}
 		}
 	}
+}

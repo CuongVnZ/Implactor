@@ -26,13 +26,12 @@ namespace Implactor\npc\bot;
 
 use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
+
 use Implactor\Implade;
 use Implactor\npc\bot\BotHuman;
 
 class BotUnsneakTask extends Task {
 
-	/** @var MainIR $plugin */
-	/** @var Entity $entity */
 	private $plugin, $entity;
 
 	public function __construct(Implade $plugin, Entity $entity){
