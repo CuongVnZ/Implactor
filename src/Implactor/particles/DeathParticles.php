@@ -24,21 +24,22 @@
 declare(strict_types=1);
 namespace Implactor\particles;
 
+use pocketmine\level\{
+	Level, Location, Position
+};
+use pocketmine\level\particle\{
+	HugeExplodeParticle as BigExplosion, LavaParticle as LavaExplosion
+};
+use pocketmine\{
+	Player, Server
+};
 use pocketmine\scheduler\Task;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\plugin\Plugin;
-use pocketmine\level\particle\LavaParticle;
-use pocketmine\level\particle\HugeExplodeParticle;
 use pocketmine\math\Vector3;
-use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\Location;
+
 use Implactor\Implade;
 
 class DeathParticles extends Task {
 	
-	/** @var Player */
 	private $player;
 	
 	public function __construct(Implade $plugin, Player $player){
@@ -56,28 +57,19 @@ class DeathParticles extends Task {
 		$center = new Vector3($x, $y, $z);
 		$radius = 1;
 		$count = 6;
-		$deathone = new HugeExplodeParticle($center, $r, $g, $b, 1);
+		$deathexplosion = new BigExplosion($center, $r, $g, $b, 1);
 		for($yaw = 0, $y = $center->y; $y < $center->y + 4; $yaw += (M_PI * 2) / 20, $y += 1 / 20){
 			$x = -sin($yaw) + $center->x;
 			$z = cos($yaw) + $center->z;
-			$deathone->setComponents($x, $y, $z);
-			$death->addParticle($deathone);
-                }
-		$r = rand(1,300);
-		$g = rand(1,300);
-		$b = rand(1,300);
-		$x = $this->player->getX();
-		$y = $this->player->getY();
-		$z = $this->player->getZ();
-		$center = new Vector3($x, $y, $z);
-		$radius = 1;
-		$count = 6;
-		$deathtwo = new LavaParticle($center, $r, $g, $b, 1);
+			$deathexplosion->setComponents($x, $y, $z);
+			$death->addParticle($deathexplosion);
+        }
+		$deathlava = new LavaExplosion($center, $r, $g, $b, 1);
 		for($yaw = 0, $y = $center->y; $y < $center->y + 4; $yaw += (M_PI * 2) / 20, $y += 1 / 20){
 			$x = -sin($yaw) + $center->x;
 			$z = cos($yaw) + $center->z;
-			$deathtwo->setComponents($x, $y, $z);
-			$death->addParticle($deathtwo);
+			$deathlava->setComponents($x, $y, $z);
+			$death->addParticle($deathlava);
 		}
 	}
 }
