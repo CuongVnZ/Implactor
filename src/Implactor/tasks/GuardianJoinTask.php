@@ -26,7 +26,7 @@ namespace Implactor\tasks;
 
 use pocketmine\level\{
 	Level, Position
-];
+};
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
