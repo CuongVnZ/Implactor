@@ -24,15 +24,14 @@
 declare(strict_types=1);
 namespace Implactor\tasks;
 
-use Implactor\Implade;
-use pocketmine\scheduler\Task;
 use pocketmine\Player;
+use pocketmine\scheduler\Task;
+
+use Implactor\Implade;
 
 class ChatCooldownTask extends Task {
 
-    /** @var Core */
     private $plugin;
-    /** @var Player */
     private $player;
 
     public function __construct(Implade $plugin, Player $player){
