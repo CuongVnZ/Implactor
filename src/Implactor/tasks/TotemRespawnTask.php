@@ -4,7 +4,7 @@ namespace Implactor\tasks;
 
 use pocketmine\level\{
 	Level, Position
-];
+};
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\Task;
@@ -24,11 +24,10 @@ class TotemRespawnTask extends Task {
 	}
 	
 	public function onRun(int $currentTick): void{
-		$player = $this->player;
 		$pk = new LevelEventPacket();
 		$pk->evid = LevelEventPacket::EVENT_SOUND_TOTEM;
 		$pk->data = 0;
-		$pk->position = $player->asVector3();
-		$player->dataPacket($pk);
+		$pk->position = $this->player->asVector3();
+		$this->player->dataPacket($pk);
 	}
 }
