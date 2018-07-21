@@ -5,8 +5,9 @@ namespace Implactor\tasks;
 use pocketmine\level\{
 	Level, Position
 };
-use pocketmine\Player;
-use pocketmine\Server;
+use pocketmine\{
+        Player, Server
+};
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\LevelEventPacket;
