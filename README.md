@@ -7,14 +7,14 @@
 
 # Implactor
 This is a Implactor plugin which has a cool features for Minecraft: Bedrock!<br>
-Similar to some core plugin
+Similar to some core plugins!
 
-# License
+### License
 This plugin is licensed under GNU General Public License v3.0!<br>
 It is free to use, copyleft license for software and other<br>
 kinds of works.
 
-# Note
+### Note
 This plugin repo has been removed from Github, maybe I'm not wrong, it's a date of **4 July 2018**,
 because we've found a hitting player issue and trying to fix as we can!<br>
 <br>
@@ -22,7 +22,7 @@ We added it back on **14 July 2018** with a some of features has removed, but th
 Brand new added 2 UI commands - required **[FormAPI](http://github.com/jojoe77777/FormAPI)** plugin and<br>
 more.
 
-# Credits
+## Credits
 This plugin was officialy created on ***23 May 2018***<br>
 and was authored and owned by [Zadezter](http://github.com/Zadezter).
 
