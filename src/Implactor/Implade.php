@@ -97,7 +97,7 @@ class Implade extends PluginBase implements Listener {
  
         public function onEnable(): void{
         	$this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
-            $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 20);
+            $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 15);
             //* Events *//
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		    $this->getServer()->getPluginManager()->registerEvents(new AntiAdvertising($this), $this);
