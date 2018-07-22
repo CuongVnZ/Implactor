@@ -31,7 +31,7 @@ use pocketmine\network\mcpe\protocol\{
 	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TakeTridentItem
 };
 use pocketmine\block\Block;
-use pocketmine\item\Item;
+use pocketmine\item\Item as Rare;
 use pocketmine\level\Level;
 use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
@@ -54,9 +54,9 @@ class ThrownTrident extends TridentProjectile {
 		if($this->blockHit === \null){
 		return;
 		}
-		$tridentItem = Item::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_ITEM));
-		$tridentInventory = $player->getInventory();
-		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
+		$tridentItem = Rare::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_WEAPON));
+		$tridentOnInventory = $player->getInventory();
+		if($player->isSurvival() and !$tridentOnInventory->canAddItem($tridentItem)){
 		return;
 		}
 		$pk = new TakeTridentItem();
@@ -64,7 +64,7 @@ class ThrownTrident extends TridentProjectile {
 		$pk->target = $this->getId();
 		$this->getServer()->broadcastPacket($this->getViewers(), $pk);
 		if(!$player->isCreative()){
-		$tridentInventory->addItem(clone $item);
+		$tridentOnInventory->addItem(clone $item);
 		}
 		$this->flagForDespawn();
 	}
