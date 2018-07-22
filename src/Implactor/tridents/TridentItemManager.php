@@ -29,9 +29,10 @@ use pocketmine\item\{
 };
 use Implactor\Implade;
 
-class ItemManager {
+class TridentItemManager {
+	
 	public static function init(){
-		OnlyTridentItem::registerItem(new Trident(), true);
-		Rare::initCreativeItems();
+          OnlyTridentItem::registerItem(new Trident(), true);
+          Rare::initCreativeItems();
 	}
 }
