@@ -21,7 +21,7 @@
 *
 *
 **/
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace Implactor\tridents;
 
 use pocketmine\{
@@ -62,7 +62,7 @@ class ThrownTrident extends TridentProjectile {
 		$pk = new TakeTridentItem();
 		$pk->eid = $player->getId();
 		$pk->target = $this->getId();
-		$this->getServer()->broadcastPacket($this->getViewers(), $pk);
+		$this->server->broadcastPacket($this->getViewers(), $pk);
 		if(!$player->isCreative()){
 		$tridentOnInventory->addItem(clone $item);
 		}
@@ -81,7 +81,7 @@ class ThrownTrident extends TridentProjectile {
 		$pk->soundName = "item.trident.hit";
 		$pk->volume = 1;
 		$pk->pitch = 1;
-		$this->getServer()->broadcastPacket($this->getViewers(), $pk);
+		$this->server->broadcastPacket($this->getViewers(), $pk);
 	}
 
 	public function onHitBlock(Block $blockHit, RayTraceResult $hitResult): void{
@@ -93,6 +93,6 @@ class ThrownTrident extends TridentProjectile {
 		$pk->soundName = "item.trident.hit_ground";
 		$pk->volume = 1;
 		$pk->pitch = 1;
-		$this->getServer()->broadcastPacket($this->getViewers(), $pk);
+		$this->server->broadcastPacket($this->getViewers(), $pk);
 	}
 }
