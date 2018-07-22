@@ -64,7 +64,7 @@ class ThrownTrident extends TridentProjectile {
 		$pk->target = $this->getId();
 		$this->server->broadcastPacket($this->getViewers(), $pk);
 		if(!$player->isCreative()){
-		$tridentOnInventory->addItem(clone $item);
+		$tridentOnInventory->addItem(clone $tridentItem);
 		}
 		$this->flagForDespawn();
 	}
