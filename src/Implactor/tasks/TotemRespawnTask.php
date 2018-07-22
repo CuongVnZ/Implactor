@@ -19,7 +19,7 @@ class TotemRespawnTask extends Task {
 	private $player;
 	private $plugin;
 
-	public function __construct(Main $plugin, Player $player){
+	public function __construct(Implade $plugin, Player $player){
                 $this->plugin = $plugin;
                 $this->player = $player;
 	}
