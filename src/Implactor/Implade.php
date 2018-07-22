@@ -24,65 +24,59 @@
 declare(strict_types=1);
 namespace Implactor;
 
-//* Implactor *//
-use Implactor\tasks\AntiAdvertising;
-use Implactor\tasks\AntiSwearing;
-use Implactor\tasks\AntiCaps;
-use Implactor\tasks\ChatCooldownTask;
-use Implactor\tasks\ClearLaggTask;
-use Implactor\particles\SpawnParticles;
-use Implactor\particles\DeathParticles;
-use Implactor\npc\DeathHuman;
-use Implactor\npc\DeathHumanDespawn;
-use Implactor\npc\bot\BotTask;
-use Implactor\npc\bot\BotHuman;
-use Implactor\npc\bot\BotListener;
-
-//* Pocketmine *//
-use pocketmine\plugin\PluginBase;
-use pocketmine\plugin\PluginDescription;
-use pocketmine\plugin\Plugin;
-use pocketmine\event\Listener;
-use pocketmine\event\entity\EntitySpawnEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\player\PlayerPreLoginEvent;
-use pocketmine\event\player\PlayerLoginEvent;
-use pocketmine\event\player\PlayerJoinEvent; 
-use pocketmine\event\player\PlayerQuitEvent; 
-use pocketmine\event\player\PlayerDeathEvent; 
-use pocketmine\event\player\PlayerRespawnEvent;
-use pocketmine\event\player\PlayerChatEvent;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\NamedTag;
-use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\level\sound\EndermanTeleportSound as Join;
-use pocketmine\level\sound\BlazeShootSound as Quit;
-use pocketmine\level\sound\GhastSound as DeathOne;
-use pocketmine\level\sound\AnvilBreakSound as DeathTwo;
-use pocketmine\level\sound\DoorBumpSound as Bot;
-use pocketmine\level\sound\FizzSound as Book;
+use pocketmine\{
+	Player, Server
+};
+use pocketmine\plugin\{
+	Plugin, PluginBase, PluginDescription
+};
+use pocketmine\nbt\tag\{
+	CompoundTag, ListTag, DoubleTag, FloatTag, NamedTag
+};
+use pocketmine\command\{
+	Command, CommandSender
+};
+use pocketmine\level\{
+	Level, Position
+};
+use pocketmine\entity\{
+	Entity, Effect, EffectInstance, Creature, Human
+};
+use pocketmine\level\sound\{
+	EndermanTeleportSound as Join, BlazeShootSound as Quit, GhastSound as DeathOne, AnvilBreakSound as DeathTwo, DoorBumpSound as Bot, FizzSound as Book
+};
+use pocketmine\event\entity\{
+	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
+};
+use pocketmine\event\player\{
+	PlayerPreLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent
+};
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
-use pocketmine\entity\Entity;
-use pocketmine\entity\Effect;
-use pocketmine\entity\EffectInstance;
-use pocketmine\entity\Creature;
-use pocketmine\entity\Human;
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\Server;
-use pocketmine\Player;
+use pocketmine\event\Listener;
 use pocketmine\block\Block;
 use pocketmine\nbt\NBT;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
+use jojoe77777\FormAPI; // Two UI commands are required this plugin... :3
 
-//* Others *//
-use jojoe77777\FormAPI;
+use Implactor\listeners\{
+	AntiAdvertising, AntiSwearing, AntiCaps
+};
+use Implactor\tasks\{
+	ChatCooldownTask, ClearLaggTask, GuardianJoinTask, TotemRespawnTask
+};
+use Implactor\tridents\{
+	Trident, ThrownTrident, TridentEntityManager, TridentItemManager
+};
+use Implactor\particles\{
+	SpawnParticles, DeathParticles
+};
+use Implactor\npc\{
+	DeathHuman, DeathHumanDespawn
+};
+use Implactor\npc\bot\{
+	BotHuman, BotListener, BotTask
+};
 
 class Implade extends PluginBase implements Listener {
 	
@@ -106,7 +100,8 @@ class Implade extends PluginBase implements Listener {
  
         public function onEnable(): void{
         	$this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
-            $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 20);
+            $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 15);
+            $this->registerTridents();
             //* Events *//
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		    $this->getServer()->getPluginManager()->registerEvents(new AntiAdvertising($this), $this);
@@ -123,14 +118,20 @@ class Implade extends PluginBase implements Listener {
       }
       
       public function checkDepends(): void{
-          $this->formapi = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
-           if(is_null($this->formapi)){
-             $this->getLogger()->warning("FormAPI not found in plugin folder! Disabled 2 UI commands...");
+          $this->formplugin = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
+           if(is_null($this->formplugin)){
+             $this->getLogger()->warning("FormAPI not found in plugin folder! Disabled two UI commands...");
             }
       }
     
        public function onDisable(): void{
        	$this->getLogger()->notice("Oh no, Implactor has self-destructed it's system!");
+      }
+      
+      private function registerTridents(){
+      	$this->getLogger()->notice("A mysterious legendary of Trident is loading and registering to Implactor!");
+           TridentEntityManager::init();
+           TridentItemManager::init();
       }
       
        public function onPreLogin(PlayerPreLoginEvent $ev) : void{
@@ -148,8 +149,9 @@ class Implade extends PluginBase implements Listener {
 	
 		public function onJoin(PlayerJoinEvent $ev): void{
 			$player = $ev->getPlayer();
-	                $player->setGamemode(Player::SURVIVAL);
-			$player->sendMessage("§7[§aI§6R§7]§r §bThis server is running the Implactor plugin!");
+	        $player->setGamemode(Player::SURVIVAL);
+	        $this->getScheduler()->scheduleDelayedTask(new GuardianJoinTask($this, $player), 25);
+			$player->sendMessage("§7[§aI§6R§7]§r §bThis server is running the Implactor!");
 		if($player->isOP()){
 			$ev->setJoinMessage("§7(§6STAFF§7) §l§8[§a+§8]§r §a{$player->getName()}");
 			$player->getLevel()->addSound(new Join($player));
@@ -161,7 +163,7 @@ class Implade extends PluginBase implements Listener {
 	
 		public function onQuit(PlayerQuitEvent $ev): void{
 			$player = $ev->getPlayer();
-		if($player->isOP()){
+	   if($player->isOP()){
 			$ev->setQuitMessage("§7(§6STAFF§7) §l§8[§c-§8]§r §c{$player->getName()}");
 			$player->getLevel()->addSound(new Quit($player));
          }else{
@@ -173,8 +175,9 @@ class Implade extends PluginBase implements Listener {
 		public function onRespawn(PlayerRespawnEvent $ev): void{
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
-	                $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
-		        $player->setGamemode(Player::SURVIVAL);
+			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 15);
+	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
+		    $player->setGamemode(Player::SURVIVAL);
 			
 	  }
 	
@@ -206,8 +209,8 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTag("§7[§cDeath§7]§r\n§f" .$player->getName(). "");
 		   $death->setNameTagAlwaysVisible(false);
 		   $death->spawnToAll();
-		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1500);
-                   $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
+		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1700);
+           $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
 	  }
 	
 		public function onChat(PlayerChatEvent $ev): void{
@@ -234,7 +237,7 @@ class Implade extends PluginBase implements Listener {
 				if($entity->getAllowFlight() == true){
 					$entity->setFlying(false);
 					$entity->setAllowFlight(false);
-					$entity->sendMessage("§l§7(§c!§7)§r §cYour abilities have been disabled because you suffered damaged§e...");
+					$entity->sendMessage("§l§7(§c!§7)§r §cYour fly ability have been disabled because you suffered damaged§e...");
 					}
 				}
 				if(isset($this->wild[$entity->getName()])){
@@ -246,11 +249,11 @@ class Implade extends PluginBase implements Listener {
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
 	  }
 	
-		public function summonBot(Player $player, string $name): void{
+		public function summonBot(Player $player, string $botname): void{
 			$botnbt = Entity::createBaseNBT($player, null, 2, 2);
 		    $botnbt->setTag($player->namedtag->getTag("Skin"));
 		    $bot = new BotHuman($player->getLevel(), $botnbt);
-		    $bot->setNameTag("§7[§bBot§7]§r\n§f" .$name. "");
+		    $bot->setNameTag("§7[§bBot§7]§r\n§f" .$botname. "");
 		    $bot->setNameTagAlwaysVisible(true);
 		    $bot->spawnToAll();
 	  }
@@ -350,12 +353,12 @@ class Implade extends PluginBase implements Listener {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.command.help")){
         if(count($args) == 0){
-			$sender->sendMessage("§8§l(§6!§8)§r §cCommand usage§8:§r§7 /ihelp §e[1-2]");
+			$sender->sendMessage("§8§l(§6!§8)§r §cCommand usage§8:§r§7 /ihelp §e[1-3]");
          }else{
 			if(count($args) == 1){
             switch($args[0]){
 			case "1":
-			     $sender->sendMessage("§b--(§a Implactor Help §7[§e1-2§7] §b)--");
+			     $sender->sendMessage("§b--(§a Implactor Help §7[§e1-3§7] §b)--");
 			     $sender->sendMessage("§e/ihelp §9- §fCheck all commands list available!");
 			     $sender->sendMessage("§e/iabout §9- §fAbout Implactor!");
 			     $sender->sendMessage("§e/ping §9- §fPing your connection in-game server!");
@@ -363,11 +366,18 @@ class Implade extends PluginBase implements Listener {
 			     $sender->sendMessage("§e/icast §9- §fBroadcast your message to all online players!");
 			     break;
 			case "2":
-			     $sender->sendMessage("§b--(§a Implactor Help §7[§e2-2§7] §b)--");
+			     $sender->sendMessage("§b--(§a Implactor Help §7[§e2-3§7] §b)--");
 			     $sender->sendMessage("§e/wild §9- §fTeleport to a random spot of wilderness!");
-			     $sender->sendMessage("§e/pvisible §9- §fShow or hide the player visibility!");
-			     $sender->sendMessage("§e/vision §9- §fUse the vision mode with a command!");
+			     $sender->sendMessage("§e/pvisible §9- §fOpen the player visibility menu UI!");
+			     $sender->sendMessage("§e/vision §9- §fOpen the vision menu UI!");
 			     $sender->sendMessage("§e/ibook §9- §fGet a book of §6Implactor§f!");
+			     $sender->sendMessage("§e/gms §9- §fChange the gamemode to §c§lSURVIVAL");
+			     break;
+			case "3":
+			     $sender->sendMessage("§b--(§a Implactor Help §7[§e3-3§7] §b)--");
+			     $sender->sendMessage("§e/gmc §9- §fChange the gamemode to §e§lCREATIVE");
+			     $sender->sendMessage("§e/gma §9- §fChange the gamemode to §b§lADVENTURE");
+			     $sender->sendMessage("§e/gmsc §9- §fChange the gamemode to §b§lSPECTATOR");
 			     break;
 			    }
               }
@@ -386,11 +396,11 @@ class Implade extends PluginBase implements Listener {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.command.about")){
 			$sender->sendMessage("§8---=========================---");
-			$sender->sendMessage("§8- §l§aImpl§6actor");
+			$sender->sendMessage("§8- §aImpl§6actor");
 			$sender->sendMessage("§8- §cAuthor: §fZadezter");
 			$sender->sendMessage("§8- §aTeam: §fImpladeDeveloped");
 			$sender->sendMessage("§8- §bCreated: §f23 §eMay §f2018");
-		    $sender->sendMessage("§8- §6API: §f3.0.0, 3.1.0, 4.0.0");
+		    $sender->sendMessage("§8- §6API: §f3.x.x - 4.0.0");
 		    $sender->sendMessage("§8- §dRemaked: §f14 §eJuly §f2018");
 			$sender->sendMessage("§8---=========================---");
 		}else{
@@ -403,10 +413,94 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
+		if(strtolower($command->getName()) == "gms") {
+		if(!$sender instanceof Player){
+		}
+		if(!$sender->hasPermission("implactor.gamemode")){
+		}
+		if(empty($args[0])){
+        $sender->setGamemode(Player::SURVIVAL); 
+	    $sender->sendMessage("§aYou have changed the gamemode to §c§lSURVIVAL");
+        return false;
+		}
+        $player = $this->getServer()->getPlayer($args[0]);
+         if($this->getServer()->getPlayer($args[0])){
+             $player->setGamemode(Player::SURVIVAL);
+             $sender->sendMessage("§aYou have successfully changed §f". $player->getName() . "§a's gamemode to §c§lSURVIVAL");
+             $player->sendMessage($sender->getName() . " §achanged your gamemode to §c§lSURVIVAL");
+          }else{
+             $sender->sendMessage("§cPlayer not found in-game server!");
+              return false;
+			}
+			return true;
+		}
+		if(strtolower($command->getName()) == "gmc") {
+		if(!$sender instanceof Player){
+		}
+		if(!$sender->hasPermission("implactor.gamemode")){
+		}
+		if(empty($args[0])){
+        $sender->setGamemode(Player::CREATIVE); 
+	    $sender->sendMessage("§aYou have changed the gamemode to §e§lCREATIVE");
+        return false;
+		}
+        $player = $this->getServer()->getPlayer($args[0]);
+         if($this->getServer()->getPlayer($args[0])){
+             $player->setGamemode(Player::CREATIVE);
+             $sender->sendMessage("§aYou have successfully changed §f". $player->getName() . "§a's gamemode to §e§lCREATIVE");
+             $player->sendMessage($sender->getName() . " §achanged your gamemode to §e§lCREATIVE");
+          }else{
+             $sender->sendMessage("§cPlayer not found in-game server!");
+              return false;
+			}
+			return true;
+		}
+		if(strtolower($command->getName()) == "gma") {
+		if(!$sender instanceof Player){
+		}
+		if(!$sender->hasPermission("implactor.gamemode")){
+		}
+		if(empty($args[0])){
+        $sender->setGamemode(Player::ADVENTURE); 
+	    $sender->sendMessage("§aYou have changed the gamemode to §b§lADVENTURE");
+        return false;
+		}
+        $player = $this->getServer()->getPlayer($args[0]);
+         if($this->getServer()->getPlayer($args[0])){
+             $player->setGamemode(Player::ADVENTURE);
+             $sender->sendMessage("§aYou have successfully changed §f". $player->getName() . "§a's gamemode to §b§lADVENTURE");
+             $player->sendMessage($sender->getName() . " §achanged your gamemode to §b§lADVENTURE");
+          }else{
+             $sender->sendMessage("§cPlayer not found in-game server!");
+              return false;
+			}
+			return true;
+		}
+		if(strtolower($command->getName()) == "gmsc") {
+		if(!$sender instanceof Player){
+		}
+		if(!$sender->hasPermission("implactor.gamemode")){
+		}
+		if(empty($args[0])){
+        $sender->setGamemode(Player::SPECTATOR); 
+	    $sender->sendMessage("§aYou have changed the gamemode to §7§lSPECTATOR");
+        return false;
+		}
+        $player = $this->getServer()->getPlayer($args[0]);
+         if($this->getServer()->getPlayer($args[0])){
+             $player->setGamemode(Player::SPECTATOR);
+             $sender->sendMessage("§aYou have successfully changed §f". $player->getName() . "§a's gamemode to §7§lSPECTATOR");
+             $player->sendMessage($sender->getName() . " §achanged your gamemode to §7§lSPECTATOR");
+          }else{
+             $sender->sendMessage("§cPlayer not found in-game server!");
+              return false;
+			}
+			return true;
+		}
 		if(strtolower($command->getName()) == "vision") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.vision")){
-		    $this->visionModeUI($sender);
+		    $this->visionMenuUI($sender);
 		}else{
             $sender->sendMessage("§cYou have no permission allowed to use §ePlayer visibility §ccommand§e!");
             return false;
@@ -420,7 +514,7 @@ class Implade extends PluginBase implements Listener {
 		if(strtolower($command->getName()) == "pvisible") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.playervisibility")){
-		    $this->visiblePlayerUI($sender);
+		    $this->visiblePlayerMenuUI($sender);
 		}else{
             $sender->sendMessage("§cYou have no permission allowed to use §ePlayer visibility §ccommand§e!");
             return false;
@@ -433,7 +527,7 @@ class Implade extends PluginBase implements Listener {
            }
 	  }
 	    
-	    public function visiblePlayerUI($sender): void{
+	    public function visiblePlayerMenuUI($sender): void{
 		    $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
             $form = $api->createSimpleForm(function (Player $sender, $data){
             $result = $data;
@@ -455,11 +549,11 @@ class Implade extends PluginBase implements Listener {
 	        }
             break;
             case 2:
-            $sender->sendMessage("§cClosed the player visible UI mode...");
+            $sender->sendMessage("§cYou have closed the player visibility menu UI mode...");
             break;
             }
          });
-         $form->setTitle("§l§aImpl§6actor");
+         $form->setTitle("Implactor Menu UI");
          $form->setContent("§f> §0Player Visibility\n§eShow or hide their visibility!");
          $form->addButton("§aSHOW", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249098/Show.png");
          $form->addButton("§4HIDE", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316318060249099/Hide.png");
@@ -467,7 +561,7 @@ class Implade extends PluginBase implements Listener {
          $form->sendToPlayer($sender);
      }
      
-        public function visionModeUI($sender): void{
+        public function visionMenuUI($sender): void{
 		    $api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
             $form = $api->createSimpleForm(function (Player $sender, $data){
             $result = $data;
@@ -483,11 +577,11 @@ class Implade extends PluginBase implements Listener {
             $sender->sendMessage("§eYou have §cdisabled the §bNight Vision §emode!");
             break;
             case 2:
-            $sender->sendMessage("§cClosed the vision UI mode...");
+            $sender->sendMessage("§cYou have closed the vision menu UI mode...");
             break;
             }
          });
-         $form->setTitle("§l§aImpl§6actor");
+         $form->setTitle("Implactor Menu UI");
          $form->setContent("§f§l> §r§0Vision Mode\n§eGet some light while on night mode!");
          $form->addButton("§aENABLE", 1, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542804/On.png");
          $form->addButton("§4DISABLE", 2, "https://cdn.discordapp.com/attachments/442624759985864714/468316317351542806/Off.png");
@@ -503,7 +597,7 @@ class Implade extends PluginBase implements Listener {
 		    $player->getInventory()->addItem($ibook);
 	  }
 	
-		public function clearItems(): int{
+		public function clearDroppedItems(): int{
 			$i = 0;
             foreach($this->getServer()->getLevels() as $level){
             foreach($level->getEntities() as $entity){
@@ -516,7 +610,7 @@ class Implade extends PluginBase implements Listener {
            return $i;
 	  }
 	
-        public function clearMobs(): int{
+        public function clearSpawnedMobs(): int{
         	$i = 0;
             foreach($this->getServer()->getLevels() as $level){
             foreach($level->getEntities() as $entity){

@@ -21,28 +21,18 @@
 *
 *
 **/
-declare(strict_types=1);
-namespace Implactor\npc\bot;
+declare(strict_types = 1);
+namespace Implactor\tridents;
 
-use pocketmine\entity\Entity;
-use pocketmine\scheduler\Task;
-
+use pocketmine\item\{
+	Item as Rare, ItemFactory as OnlyTridentItem
+};
 use Implactor\Implade;
-use Implactor\npc\bot\BotHuman;
 
-class BotUnsneakTask extends Task {
-
-	private $plugin, $entity;
-
-	public function __construct(Implade $plugin, Entity $entity){
-		$this->plugin = $plugin;
-		$this->entity = $entity;
-	}
-
-	public function onRun(int $tick): void{
-		$entity = $this->entity;
-		if($entity instanceof BotHuman){
-			$entity->setSneaking(false);
-		}
+class TridentItemManager {
+	
+	public static function init(){
+          OnlyTridentItem::registerItem(new Trident(), true);
+          Rare::initCreativeItems();
 	}
 }

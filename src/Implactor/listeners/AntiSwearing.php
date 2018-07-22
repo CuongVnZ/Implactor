@@ -22,23 +22,22 @@
 *
 **/
 declare(strict_types=1);
-namespace Implactor\tasks;
+namespace Implactor\listeners;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
+
 use Implactor\Implade;
 
-class AntiAdvertising implements Listener {
+class AntiSwearing implements Listener {
 
-    /** @var Core */
     private $plugin;
-    /** @var array */
-    private $links;
+    private $badwords;
 
     public function __construct(Implade $plugin){
         $this->plugin = $plugin;
-        $this->links = [".leet.cc", ".playmc.pe", ".net", ".com", ".us", ".co", ".co.uk", ".ddns", ".ddns.net", ".cf", ".pe", ".me", ".cc", ".ru", ".eu", ".tk", ".gq", ".ga", ".ml", ".org", ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9", "my server", "my sever", "ma server", "mah server", "ma sever", "mah sever"];
+        $this->badwords = ["anal", "asshole", "anus", "ass", "bastard", "bitch", "boob", "cock", "cum", "cunt", "dick", "dildo", "dyke", "fag", "faggot", "fuck", "fuk", "fk", "hoe", "tits", "whore", "handjob", "homo", "jizz", "cunt", "kike", "kunt", "muff", "nigger", "penis", "piss", "poop", "pussy", "queer", "rape", "semen", "sex", "shit", "slut", "titties", "twat", "vagina", "vulva", "wank", "FUCK", "BITCH", "FAGGOT", "DICK", "CUNT", "ASS", "nigger", "nigga", "pus", "puss", "pusy"];
     }
 
     public function onChat(PlayerChatEvent $ev) : void{
@@ -47,9 +46,9 @@ class AntiAdvertising implements Listener {
         if(!$player instanceof Player) return;
         if($player->hasPermission("implactor.anti")){
         }else{
-            foreach($this->links as $links){
-                if(strpos($msg, $links) !== false){
-                    $player->sendMessage("§l§8(§6!§8)§r §6Do not advertisting a links on this server!");
+            foreach($this->badwords as $badwords){
+                if(strpos($msg, $badwords) !== false){
+                    $player->sendMessage("§l§8(§6!§8)§r §6Do not swearing a bad words on this server!");
                     $ev->setCancelled();
                     return;
                 }

@@ -5,29 +5,38 @@
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/ImpladeDeveloped/Implactor/Implactor/Implade)](https://poggit.pmmp.io/ci/ImpladeDeveloped/Implactor) | [![HitCount](http://hits.dwyl.io/ImpladeDeveloped/Implactor.svg)](http://hits.dwyl.io/ImpladeDeveloped/Implactor) | [![Implactor License](https://img.shields.io/github/license/ImpladeDeveloped/Implactor.svg?label=License)](LICENSE)
 
 
-# Implactor
-This is a Implactor plugin which has a cool features for Minecraft: Bedrock!<br>
-Everyone said, this is similar to Essentials, and like a core!
+## Implactor
+A [PocketMine](http://github.com/pmmp/PocketMine-MP) plugin that similar to cores, has a normal or special<br>
+features for Minecraft: Bedrock servers!
 
-# License
+### License
 This plugin is licensed under GNU General Public License v3.0!<br>
 It is free to use, copyleft license for software and other<br>
 kinds of works.
 
-# Note
-This plugin repo has been removed from Github, maybe I'm not wrong, it's a date of **4 July 2018**,
-because we've found a hitting player issue and trying to fix as we can!<br>
-<br>
-We added back on **14 July 2018** with a some of features has removed,<br>
-Brand new 2 UI commands - required **[FormAPI](http://github.com/jojoe77777/FormAPI)** plugin and<br>
-more we had to test.
+### Note
+We have removed this repository from Github on **4 July 2018**<br>
+We added it back on **14 July 2018** because the problem has solved!<br>
 
-# Credits
-This plugin was officialy created on ***23 May 2018***<br>
-and was authored and owned by [Zadezter](http://github.com/Zadezter).
+## Features
+- [x] Bot Human
+- [x] Ping
+- [x] Book of Implactor
+- [x] Gamemodes
+- [x] Death Animation - Corpses
+- [x] Wild
+- [x] Vision ([FormAPI](http://github.com/jojoe77777/FormAPI) required)
+- [x] Player Visibility ([FormAPI](http://github.com/jojoe77777/FormAPI) required)
+- [x] Implacast
+- [x] Cool Particles
+- [x] The Legendary of Posideon's Trident Weapon Item
 
-Team: [ImpladeDeveloped](http://github.com/ImpladeDeveloped/Implactor)<br>
-Latest updated this README.MD: ***14 July 2018***
+## Credits
+> This plugin was officialy created on ***23 May 2018***<br>
+> and it's owned by [Zadezter](http://github.com/Zadezter).
+>
+> Team: [ImpladeDeveloped](http://github.com/ImpladeDeveloped/Implactor)<br>
+> Latest updates on README.MD: ***22 July 2018***
 
 
 

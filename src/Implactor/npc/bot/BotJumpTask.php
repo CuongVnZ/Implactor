@@ -30,10 +30,8 @@ use pocketmine\scheduler\Task;
 use Implactor\Implade;
 use Implactor\npc\bot\BotHuman;
 
-class BotJumpTask extends Task{
+class BotJumpTask extends Task {
 
-	/** @var MainIR $plugin */
-	/** @var Entity $entity */
 	private $plugin, $entity;
 
 	public function __construct(Implade $plugin, Entity $entity){

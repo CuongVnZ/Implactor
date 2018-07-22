@@ -1,5 +1,5 @@
 name: Implactor
-version: IR-1.5
+version: IR-1.5.1
 api:
 - 3.0.0
 - 3.1.0
@@ -20,16 +20,16 @@ commands:
         description: Get a book of Implactor with a command!
         permission: implactor.book
     vision:
-        description: Use the vision mode with UI mode!
+        description: Open a vision menu UI! (FormAPI required)
         permission: implactor.vision
     pvisible:
-        description: Use the player visibility with UI mode!
+        description: Open the player visibility menu UI! (FormAPI required)
         permission: implactor.playervisibility
     ihelp:
          description: Check all Implactor command list available!
          permission: implactor.command.help
     iabout:
-         description: About Implactor!
+         description: Take a look about Implactor!
          permission: implactor.command.about
     wild:
          description: Teleport to random spot of wilderness!
@@ -37,6 +37,18 @@ commands:
     ping:
          description: Ping your connection in-game server!
          permission: implactor.ping
+    gms:
+         description: Change the gamemode to Survival!
+         permission: implactor.gamemode
+    gmc:
+         description: Change the gamemode to Creative!
+         permission: implactor.gamemode
+    gma:
+         description: Change the gamemode to Adventure!
+         permission: implactor.gamemode
+    gmsc:
+         description: Change the gamemode to Spectator!
+         permission: implactor.gamemode
          
 permissions:
     implactor.*:
@@ -49,7 +61,7 @@ permissions:
      description: "Allow players to ping their connection in-game server"
      default: true
     implactor.playervisibility:
-     description: "Allow players to show or hide player visibility"
+     description: "Allow players to open the player visibility menu UI"
      default: true
     implactor.bot:
      description: "Allow OP staff members to spawn their own bot human"
@@ -67,5 +79,8 @@ permissions:
      description: "Allow players to see the command list"
      default: true
     implactor.vision:
-     description: "Allow OP staff members to use the vision mode"
+     description: "Allow OP staff members to open the vision menu UI"
+     default: op
+    implactor.gamemode:
+     description: "Allow OP staff to change their gamemodes"
      default: op

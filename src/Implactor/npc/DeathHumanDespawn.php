@@ -24,19 +24,17 @@
 declare(strict_types=1);
 namespace Implactor\npc;
 
+use pocketmine\Player;
+use pocketmine\entity\Entity;
+use pocketmine\scheduler\Task;
+
 use Implactor\Implade;
 use Implactor\npc\DeathHuman;
-use pocketmine\entity\Entity;
-use pocketmine\Player;
-use pocketmine\scheduler\Task;
 
 class DeathHumanDespawn extends Task {
 	
-    /** @var MainIR $plugin */
     private $plugin;
-	/** @var Entity $entity */
 	private $entity;
-	/** @var Player $player */
 	private $player;
 	
 	public function __construct(Implade $plugin, Entity $entity, Player $player){
@@ -50,6 +48,6 @@ class DeathHumanDespawn extends Task {
 		if($entity instanceof DeathHuman){
 			if($this->entity->getNameTag() === "§7[§cDeath§7]§r\n§f" .$this->player->getName(). "") $this->entity->close();
 			$this->entity->close();
-		}
-	}
-}
+		 }
+	 }
+ }

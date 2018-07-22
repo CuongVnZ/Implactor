@@ -22,27 +22,16 @@
 *
 **/
 declare(strict_types=1);
-namespace Implactor\npc\bot;
+namespace Implactor\tridents;
 
-use pocketmine\entity\Entity;
-use pocketmine\scheduler\Task;
+use pocketmine\entity\Entity as OnlyTrident;
 
 use Implactor\Implade;
-use Implactor\npc\bot\BotHuman;
+use Implactor\tridents\ThrownTrident;
 
-class BotUnsneakTask extends Task {
-
-	private $plugin, $entity;
-
-	public function __construct(Implade $plugin, Entity $entity){
-		$this->plugin = $plugin;
-		$this->entity = $entity;
-	}
-
-	public function onRun(int $tick): void{
-		$entity = $this->entity;
-		if($entity instanceof BotHuman){
-			$entity->setSneaking(false);
+class TridentEntityManager extends OnlyTrident {
+	
+	public static function init(): void{
+		OnlyTrident::registerEntity(ThrownTrident::class, true, ['Thrown Trident', 'minecraft:thrown_trident']);
 		}
 	}
-}

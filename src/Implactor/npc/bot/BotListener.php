@@ -24,25 +24,26 @@
 declare(strict_types=1);
 namespace Implactor\npc\bot;
 
-use pocketmine\Player;
 use pocketmine\math\{
         Vector2, AxisAlignedBB
 };
-use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\{
 	AnimatePacket, MovePlayerPacket, MoveEntityAbsolutePacket
 };
 use pocketmine\event\entity\{
 	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
 };
+use pocketmine\entity\{
+	Entity, Effect, EffectInstance
+};
+use pocketmine\Player;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\Listener;
-use pocketmine\entity\Effect;
-use pocketmine\entity\EffectInstance;
 
-use Implactor\npc\bot\BotTask;
-use Implactor\npc\bot\BotHuman;
 use Implactor\Implade;
+use Implactor\npc\bot\{
+	BotTask, BotHuman
+};
 
 class BotListener implements Listener {
 
@@ -54,38 +55,35 @@ class BotListener implements Listener {
 
 	public function onEntitySpawn(EntitySpawnEvent $ev): void{
 		$entity = $ev->getEntity();
-
 		if($entity instanceof BotHuman){
 			$this->plugin->getScheduler()->scheduleRepeatingTask(new BotTask($this->plugin, $entity), 200);
-                   }
+          }
 	}
 
 	public function onSwing(EntityDamageEvent $ev): void{
 			$entity = $ev->getEntity();
-
 			if($ev instanceof EntityDamageByEntityEvent){
 				$damager = $ev->getDamager();
-
 				if($entity instanceof BotHuman){
 					$pk = new AnimatePacket();
 					$pk->entityRuntimeId = $entity->getId();
 					$pk->action = AnimatePacket::ACTION_SWING_ARM;
 					$damager->dataPacket($pk);
 					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true));
-                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
+                    $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
 				}
-		}
+		  }
 	}
 
-    public function onPlayerMove(PlayerMoveEvent $ev) : void{
+    public function onPlayerMove(PlayerMoveEvent $ev): void{
     		$player = $ev->getPlayer();
     		$from = $ev->getFrom();
     		$to = $ev->getTo();
-                $distance = 7;
-
-    		if($from->distance($to) < 0.1) return;
+            if($from->distance($to) < 0.1) {
+            	return;
+            }
+            $distance = 7;
     		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
-    	
             if($entity instanceof BotHuman){
                 $pk = new MoveEntityAbsolutePacket();
                 $v = new Vector2($entity->x, $entity->z);

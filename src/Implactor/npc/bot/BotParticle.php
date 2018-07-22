@@ -24,21 +24,23 @@
 declare(strict_types=1);
 namespace Implactor\npc\bot;
 
+use pocketmine\level\{
+	Level, Position
+};
+use pocketmine\level\particle\{
+	FlameParticle as Flame, WaterParticle as Water
+};
 use pocketmine\entity\Entity;
 use pocketmine\math\Vector3;
-use pocketmine\level\particle\FlameParticle as FlameCircle;
-
-use pocketmine\level\Level;
-use pocketmine\level\Position;
 use pocketmine\scheduler\Task;
+
 use Implactor\Implade;
-use Implactor\npc\bot\BotHuman;
-use Implactor\npc\bot\BotTask;
+use Implactor\npc\bot\{
+	BotHuman, BotTask
+};
 
 class BotParticle extends Task {
 	
-	/** @var MainIR $plugin */
-	/** @var Entity $entity */
 	private $plugin, $entity;
 	
 	public function __construct(Implade $plugin, Entity $entity){
@@ -50,13 +52,19 @@ class BotParticle extends Task {
 		$entity = $this->entity;
 		
 		if($entity instanceof BotHuman){
-			$botp = $entity->getLevel();
+			$botparticle = $entity->getLevel();
 			if($entity->isAlive()){
 				for($yaw = 0; $yaw <= 10; $yaw += 0.5){
 					$x = 0.5 * sin($yaw);
 					$y = 0.5;
 					$z = 0.5 * cos($yaw);
-					$botp->addParticle(new FlameCircle($entity->add($x, $y, $z)));
+					$botparticle->addParticle(new Flame($entity->add($x, $y, $z)));
+				}
+				for($yaw = 0; $yaw <= 10; $yaw += 0.5){
+					$x = 0.5 * sin($yaw);
+					$y = 0.5;
+					$z = 0.5 * cos($yaw);
+					$botparticle->addParticle(new Water($entity->add($x, $y, $z)));
 				}
 			}
 		}

@@ -22,18 +22,17 @@
 *
 **/
 declare(strict_types=1);
-namespace Implactor\tasks;
+namespace Implactor\listeners;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\Player;
+
 use Implactor\Implade;
 
 class AntiCaps implements Listener {
 
-    /** @var Core */
     private $plugin;
-    /** @var array */
     private $caps;
 
     public function __construct(Implade $plugin){

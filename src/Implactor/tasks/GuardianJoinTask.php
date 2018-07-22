@@ -22,42 +22,35 @@
 *
 **/
 declare(strict_types=1);
-namespace Implactor\npc\bot;
+namespace Implactor\tasks;
 
-use pocketmine\entity\Entity;
+use pocketmine\level\{
+	Level, Position
+};
+use pocketmine\{
+        Player, Server
+};
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\LevelEventPacket;
 
 use Implactor\Implade;
-use Implactor\npc\bot\BotHuman;
 
-class BotWalkingTask extends Task {
+class GuardianJoinTask extends Task {
 
-	private $plugin, $entity;
+	private $player;
+	private $plugin;
 
-	public function __construct(Implade $plugin, Entity $entity){
-		$this->plugin = $plugin;
-		$this->entity = $entity;
+	public function __construct(Implade $plugin, Player $player){
+                $this->plugin = $plugin;
+                $this->player = $player;
 	}
-
-	public function onRun(int $tick): void{
-			$entity = $this->entity;
-			$distance = 0.7;
-			if($entity instanceof BotHuman){
-				switch($entity->getDirection()){
-				case 0:
-				$entity->setMotion(new Vector3($distance, 0, 0));
-				break;
-				case 1:
-				$entity->setMotion(new Vector3(0, 0, $distance));
-				break;
-				case 2:
-				$entity->setMotion(new Vector3(-$distance, 0, 0));
-				break;
-				case 3:
-				$entity->setMotion(new Vector3(0, 0, -$distance));
-				break;
-			}
-		}
+	
+	public function onRun(int $currentTick): void{
+		$pk = new LevelEventPacket();
+		$pk->evid = LevelEventPacket::EVENT_GUARDIAN_CURSE;
+		$pk->data = 0;
+		$pk->position = $this->player->asVector3();
+		$this->player->dataPacket($pk);
 	}
 }
