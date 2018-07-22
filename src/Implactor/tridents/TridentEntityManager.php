@@ -29,7 +29,7 @@ use pocketmine\entity\Entity as OnlyTrident;
 use Implactor\Implade;
 use Implactor\tridents\ThrownTrident;
 
-class TridentManager extends OnlyTrident {
+class TridentEntityManager extends OnlyTrident {
 	
 	public static function init(): void{
 		$this->getLogger()->debug("Trident is loading. Prepare with the power of Posideon!");
