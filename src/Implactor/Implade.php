@@ -150,7 +150,7 @@ class Implade extends PluginBase implements Listener {
 		public function onJoin(PlayerJoinEvent $ev): void{
 			$player = $ev->getPlayer();
 	        $player->setGamemode(Player::SURVIVAL);
-	        $this->getScheduler()->scheduleDelayedTask(new GuardianJoinTask($this, $player), 40);
+	        $this->getScheduler()->scheduleDelayedTask(new GuardianJoinTask($this, $player), 25);
 			$player->sendMessage("§7[§aI§6R§7]§r §bThis server is running the Implactor!");
 		if($player->isOP()){
 			$ev->setJoinMessage("§7(§6STAFF§7) §l§8[§a+§8]§r §a{$player->getName()}");
@@ -175,7 +175,7 @@ class Implade extends PluginBase implements Listener {
 		public function onRespawn(PlayerRespawnEvent $ev): void{
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
-			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 40);
+			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 15);
 	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
 		    $player->setGamemode(Player::SURVIVAL);
 			
