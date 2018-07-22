@@ -101,7 +101,7 @@ class Implade extends PluginBase implements Listener {
         public function onEnable(): void{
         	$this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
             $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 15);
-            $this->registerTrident();
+            $this->registerTridents();
             //* Events *//
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		    $this->getServer()->getPluginManager()->registerEvents(new AntiAdvertising($this), $this);
@@ -128,8 +128,8 @@ class Implade extends PluginBase implements Listener {
        	$this->getLogger()->notice("Oh no, Implactor has self-destructed it's system!");
       }
       
-      private function registerTrident(){
-      	$this->getLogger()->debug("Trident will coming to Implactor...");
+      private function registerTridents(){
+      	$this->getLogger()->notice("A mysterious legendary of Trident is loading and registering to Implactor!");
            TridentEntityManager::init();
            TridentItemManager::init();
       }
