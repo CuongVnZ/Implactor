@@ -29,7 +29,7 @@ use pocketmine\item\Tool as Weapon;
 use pocketmine\Player;
 
 use Implactor\tridents\{
-	ThrownTrident, TridentManager
+	ThrownTrident, TridentEntityManager, TridentItemManager
 };
 
 class Trident extends Weapon {
@@ -37,11 +37,11 @@ class Trident extends Weapon {
 	public const TRIDENT_ITEM = "Trident";
 
 	public function __construct($meta = 0, $count = 1){
-		parent::__construct(self::TRIDENT, $meta, "Trident");
+          parent::__construct(self::TRIDENT, $meta, "Trident");
 	}
 
 	public function getMaxDurability(): int{
-		return 251;
+          return 251;
 	}
 
 	public function onReleaseUsing(Player $player): bool{
@@ -57,12 +57,12 @@ class Trident extends Weapon {
 		$powerNBT->setName(self::TRIDENT_ITEM);
 		$tridentNBT->setTag($powerNBT);
 		if($player->isSurvival()){
-			$this->tridentDamage(1);
+		$this->tridentDamage(1);
 		}
 		$entity = Entity::createEntity("Thrown Trident", $player->getLevel(), $tridentNBT, $player, $this);
 		$entity->spawnToAll();
 		if($player->isSurvival()){
-			$player->getInventory()->removeItem(clone $this);
+		$player->getInventory()->removeItem(clone $this);
 		}
 		return true;
 	}
