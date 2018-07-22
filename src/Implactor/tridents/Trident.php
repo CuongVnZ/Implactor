@@ -34,7 +34,7 @@ use Implactor\tridents\{
 
 class Trident extends Weapon {
 
-	public const TRIDENT_ITEM = "Trident";
+	public const TRIDENT_WEAPON = "Trident";
 
 	public function __construct($meta = 0, $count = 1){
           parent::__construct(self::TRIDENT, $meta, "Trident");
@@ -53,11 +53,11 @@ class Trident extends Weapon {
 			$player->getDirectionVector()->multiply(4),
 			($player->yaw > 180 ? 360 : 0) - $player->yaw, -$player->pitch
 		);
-		$powerNBT = $this->nbtSerialize();
-		$powerNBT->setName(self::TRIDENT_ITEM);
-		$tridentNBT->setTag($powerNBT);
+		$tridentWeaponNBT = $this->nbtSerialize();
+		$tridentWeaponNBT->setName(self::TRIDENT_WEAPON);
+		$tridentNBT->setTag($tridentWeaponNBT);
 		if($player->isSurvival()){
-		$this->tridentDamage(1);
+		$this->applyDamage(1);
 		}
 		$entity = Entity::createEntity("Thrown Trident", $player->getLevel(), $tridentNBT, $player, $this);
 		$entity->spawnToAll();
@@ -72,7 +72,7 @@ class Trident extends Weapon {
 	}
 
 	public function onAttackEntity(Entity $victim): bool{
-		return $this->tridentDamage(1);
+		return $this->applyDamage(1);
 	}
 
 	public function getAttackPoints(): int{
