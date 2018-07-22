@@ -32,8 +32,7 @@ use Implactor\tridents\ThrownTrident;
 class TridentEntityManager extends OnlyTrident {
 	
 	public static function init(): void{
-		$this->getLogger()->debug("Trident is loading. Prepare with the power of Posideon!");
 		OnlyTrident::registerEntity(ThrownTrident::class, true, ['Thrown Trident', 'minecraft:thrown_trident']);
-		$this->getLogger()->info("Well, it's currently just the beginning!");
+		$this->getLogger()->info("Well, it's currently just the beginning! Activate the power of Trident!");
 		}
 	}
