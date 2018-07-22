@@ -21,7 +21,7 @@
 *
 *
 **/
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace Implactor\tridents;
 
 use pocketmine\entity\Entity as OnlyTrident;
@@ -33,6 +33,5 @@ class TridentEntityManager extends OnlyTrident {
 	
 	public static function init(): void{
 		OnlyTrident::registerEntity(ThrownTrident::class, true, ['Thrown Trident', 'minecraft:thrown_trident']);
-		$this->getLogger()->info("Well, it's currently just the beginning! Activate the power of Trident!");
 		}
 	}
