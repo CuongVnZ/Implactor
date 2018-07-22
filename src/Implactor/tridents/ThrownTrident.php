@@ -28,11 +28,12 @@ use pocketmine\{
 	Player, Server
 };
 use pocketmine\network\mcpe\protocol\{
-	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TakeTrident
+	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TakeTridentItem
 };
 use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
+use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\math\RayTraceResult;
@@ -46,31 +47,31 @@ class ThrownTrident extends TridentProjectile {
 	protected $damage = 6;
 
 	public function __construct(Level $level, CompoundTag $nbt, ?Entity $shootingEntity = \null){
-		parent::__construct($level, $nbt, $shootingEntity);
+          parent::__construct($level, $nbt, $shootingEntity);
 	}
 
 	public function onCollideWithPlayer(Player $player): void{
 		if($this->blockHit === \null){
-			return;
+		return;
 		}
 		$tridentItem = Item::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_ITEM));
 		$tridentInventory = $player->getInventory();
 		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
-			return;
+		return;
 		}
-		$pk = new TakeTrident();
+		$pk = new TakeTridentItem();
 		$pk->eid = $player->getId();
 		$pk->target = $this->getId();
 		$this->getServer()->broadcastPacket($this->getViewers(), $pk);
 		if(!$player->isCreative()){
-			$tridentInventory->addItem(clone $item);
+		$tridentInventory->addItem(clone $item);
 		}
 		$this->flagForDespawn();
 	}
 
 	public function onHitEntity(Entity $entityHit, RayTraceResult $hitResult): void{
 		if($entityHit === $this->getOwningEntity()){
-			return;
+		return;
 		}
 		parent::onHitEntity($entityHit, $hitResult);
 		$pk = new TridentSound();
