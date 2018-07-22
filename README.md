@@ -29,6 +29,7 @@ We added it back on **14 July 2018** because the problem has solved!<br>
 - [x] Player Visibility ([FormAPI](http://github.com/jojoe77777/FormAPI) required)
 - [x] Implacast
 - [x] Cool Particles
+- [x] The Legendary of Posideon's Trident Weapon Item
 
 ## Credits
 > This plugin was officialy created on ***23 May 2018***<br>
