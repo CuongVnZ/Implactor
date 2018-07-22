@@ -49,7 +49,7 @@ use pocketmine\event\entity\{
 	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
 };
 use pocketmine\event\player\{
-	PrePlayerLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent
+	PlayerPreLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
 use pocketmine\event\Listener;
