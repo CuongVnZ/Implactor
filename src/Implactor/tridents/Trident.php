@@ -21,10 +21,10 @@
 *
 *
 **/
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace Implactor\tridents;
 
-use pocketmine\entity\Entity;
+use pocketmine\entity\Entity as Trident;
 use pocketmine\item\Tool as Weapon;
 use pocketmine\Player;
 
@@ -48,10 +48,11 @@ class Trident extends Weapon {
 		if($player->getItemUseDuration() < 10){
 			return false;
 		}
-		$tridentNBT = Entity::createBaseNBT(
+		$tridentNBT = Trident::createBaseNBT(
 			$player->add(0, $player->getEyeHeight(), 0),
 			$player->getDirectionVector()->multiply(4),
-			($player->yaw > 180 ? 360 : 0) - $player->yaw, -$player->pitch
+			($player->yaw > 180 ? 360 : 0) - $player->yaw, 
+			-$player->pitch
 		);
 		$tridentWeaponNBT = $this->nbtSerialize();
 		$tridentWeaponNBT->setName(self::TRIDENT_WEAPON);
@@ -59,7 +60,7 @@ class Trident extends Weapon {
 		if($player->isSurvival()){
 		$this->applyDamage(1);
 		}
-		$entity = Entity::createEntity("Thrown Trident", $player->getLevel(), $tridentNBT, $player, $this);
+		$entity = Trident::createEntity("Thrown Trident", $player->getLevel(), $tridentNBT, $player, $this);
 		$entity->spawnToAll();
 		if($player->isSurvival()){
 		$player->getInventory()->removeItem(clone $this);
@@ -71,7 +72,7 @@ class Trident extends Weapon {
 		return 1;
 	}
 
-	public function onAttackEntity(Entity $victim): bool{
+	public function onAttackEntity(Trident $victim): bool{
 		return $this->applyDamage(1);
 	}
 
