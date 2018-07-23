@@ -129,7 +129,7 @@ class Implade extends PluginBase implements Listener {
       }
       
       private function registerTridents(){
-      	$this->getLogger()->notice("A mysterious legendary of Trident is loading and registering to Implactor!");
+      	$this->getLogger()->notice("A mysterious legendary of Trident weapon is coming!");
            TridentEntityManager::init();
            TridentItemManager::init();
       }
@@ -175,7 +175,7 @@ class Implade extends PluginBase implements Listener {
 		public function onRespawn(PlayerRespawnEvent $ev): void{
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
-			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 15);
+			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 1);
 	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
 		    $player->setGamemode(Player::SURVIVAL);
 			
@@ -210,7 +210,7 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTagAlwaysVisible(false);
 		   $death->spawnToAll();
 		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1700);
-           $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
+                  $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
 	  }
 	
 		public function onChat(PlayerChatEvent $ev): void{
@@ -360,7 +360,7 @@ class Implade extends PluginBase implements Listener {
 			case "1":
 			     $sender->sendMessage("§b--(§a Implactor Help §7[§e1-3§7] §b)--");
 			     $sender->sendMessage("§e/ihelp §9- §fCheck all commands list available!");
-			     $sender->sendMessage("§e/iabout §9- §fAbout Implactor!");
+			     $sender->sendMessage("§e/iabout §9- §fCheck about Implactor!");
 			     $sender->sendMessage("§e/ping §9- §fPing your connection in-game server!");
 			     $sender->sendMessage("§e/bot §9- §fSpawn the §bbot human§f!");
 			     $sender->sendMessage("§e/icast §9- §fBroadcast your message to all online players!");
