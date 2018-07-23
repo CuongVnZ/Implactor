@@ -99,9 +99,9 @@ class Implade extends PluginBase implements Listener {
        }
  
         public function onEnable(): void{
-        	$this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
+            $this->getLogger()->info("Implactor is currently now online! Thanks for using this plugin!");
             $this->getScheduler()->scheduleRepeatingTask(new SpawnParticles($this, $this), 15);
-            $this->registerTridents();
+            $this->loadTridents();
             //* Events *//
             $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		    $this->getServer()->getPluginManager()->registerEvents(new AntiAdvertising($this), $this);
@@ -128,10 +128,11 @@ class Implade extends PluginBase implements Listener {
        	$this->getLogger()->notice("Oh no, Implactor has self-destructed it's system!");
       }
       
-      private function registerTridents(){
-      	$this->getLogger()->notice("A mysterious legendary of Trident weapon is coming!");
+      private function loadTridents(){
+      	$this->getLogger()->notice("A mysterious legendary of Posideon's Trident weapon is coming to Implactor!");
            TridentEntityManager::init();
            TridentItemManager::init();
+        $this->getLogger()->debug("Finally, it has arrived! Prepare with a special one-shot, one-kill!");
       }
       
        public function onPreLogin(PlayerPreLoginEvent $ev) : void{
@@ -176,8 +177,10 @@ class Implade extends PluginBase implements Listener {
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
 			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 1);
-	        $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
-		    $player->setGamemode(Player::SURVIVAL);
+			$sender->addEffect(new EffectInstance(Effect::getEffect(Effect::NAUSEA), 4, 3, true));
+			$sender->addEffect(new EffectInstance(Effect::getEffect(Effect::BLINDNESS), 4, 3, true));
+	                $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
+		        $player->setGamemode(Player::SURVIVAL);
 			
 	  }
 	
