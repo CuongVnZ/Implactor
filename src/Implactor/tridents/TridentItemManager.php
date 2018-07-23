@@ -27,7 +27,9 @@ namespace Implactor\tridents;
 use pocketmine\item\{
 	Item as Legend, ItemFactory as ImpladeTrident
 };
+
 use Implactor\Implade;
+use Implactor\tridents\Trident;
 
 class TridentItemManager {
 	
