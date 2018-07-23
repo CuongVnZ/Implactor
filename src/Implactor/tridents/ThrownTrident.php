@@ -28,10 +28,10 @@ use pocketmine\{
 	Player, Server
 };
 use pocketmine\network\mcpe\protocol\{
-	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TakeTridentItem
+	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TridentTaken
 };
 use pocketmine\block\Block;
-use pocketmine\item\Item as Rare;
+use pocketmine\item\Item as Legend;
 use pocketmine\level\Level;
 use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
@@ -44,7 +44,7 @@ class ThrownTrident extends TridentProjectile {
 	public $height = 0.35;
 	public $width = 0.25;
 	public $gravity = 0.10;
-	protected $damage = 6;
+	protected $damage = 7;
 
 	public function __construct(Level $level, CompoundTag $nbt, ?Entity $shootingEntity = \null){
           parent::__construct($level, $nbt, $shootingEntity);
@@ -54,17 +54,17 @@ class ThrownTrident extends TridentProjectile {
 		if($this->blockHit === \null){
 		return;
 		}
-		$tridentItem = Rare::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_WEAPON));
-		$tridentOnInventory = $player->getInventory();
-		if($player->isSurvival() and !$tridentOnInventory->canAddItem($tridentItem)){
+		$tridentItem = Legend::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_WEAPON));
+		$tridentInventory = $player->getInventory();
+		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
 		return;
 		}
-		$pk = new TakeTridentItem();
+		$pk = new TridentTaken();
 		$pk->eid = $player->getId();
 		$pk->target = $this->getId();
 		$this->server->broadcastPacket($this->getViewers(), $pk);
 		if(!$player->isCreative()){
-		$tridentOnInventory->addItem(clone $tridentItem);
+		$tridentInventory->addItem(clone $tridentItem);
 		}
 		$this->flagForDespawn();
 	}
@@ -79,8 +79,8 @@ class ThrownTrident extends TridentProjectile {
 		$pk->y = $this->y;
 		$pk->z = $this->z;
 		$pk->soundName = "item.trident.hit";
-		$pk->volume = 1;
-		$pk->pitch = 1;
+		$pk->volume = 6;
+		$pk->pitch = 2;
 		$this->server->broadcastPacket($this->getViewers(), $pk);
 	}
 
@@ -91,8 +91,8 @@ class ThrownTrident extends TridentProjectile {
 		$pk->y = $this->y;
 		$pk->z = $this->z;
 		$pk->soundName = "item.trident.hit_ground";
-		$pk->volume = 1;
-		$pk->pitch = 1;
+		$pk->volume = 6;
+		$pk->pitch = 2;
 		$this->server->broadcastPacket($this->getViewers(), $pk);
 	}
 }
