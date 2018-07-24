@@ -34,7 +34,7 @@ use Implactor\tridents\{
 
 class Trident extends Weapon {
 
-	public const TRIDENT_WEAPON = "Trident";
+	public const TRIDENT_WEAPON = "Legendary Trident";
 
 	public function __construct($meta = 0, $count = 1){
           parent::__construct(self::TRIDENT, $meta, "Legendary Trident");
