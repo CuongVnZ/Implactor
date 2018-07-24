@@ -1,5 +1,6 @@
 --- 
 ##-- Implactor on Poggit CI --##
+branches:
 - Implade
 projects:
   Implactor:
