@@ -30,10 +30,12 @@ use pocketmine\{
 use pocketmine\network\mcpe\protocol\{
 	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TridentTaken
 };
+use pocketmine\entity\{
+        Entity, Effect as TridentEffect, EffectInstance as TridentInstance
+};
 use pocketmine\block\Block;
 use pocketmine\item\Item as Legend;
 use pocketmine\level\Level;
-use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\math\RayTraceResult;
@@ -59,10 +61,11 @@ class ThrownTrident extends TridentProjectile {
 		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
 		return;
 		}
-		$pk = new TridentTaken();
-		$pk->eid = $player->getId();
-		$pk->target = $this->getId();
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetTaken = new TridentTaken();
+		$packetTaken->eid = $player->getId();
+		$packetTaken->target = $this->getId();
+                $player->addEffect(new TridentInstance(TridentEffect::getEffect(TridentEffect::HEALTH_BOOST), 9, 0, true));
+		$this->server->broadcastPacket($this->getViewers(), $packetTaken);
 		if(!$player->isCreative()){
 		$tridentInventory->addItem(clone $tridentItem);
 		}
@@ -74,25 +77,27 @@ class ThrownTrident extends TridentProjectile {
 		return;
 		}
 		parent::onHitEntity($entityHit, $hitResult);
-		$pk = new TridentSound();
-		$pk->x = $this->x;
-		$pk->y = $this->y;
-		$pk->z = $this->z;
-		$pk->soundName = "item.trident.hit";
-		$pk->volume = 6;
-		$pk->pitch = 2;
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetSound = new TridentSound();
+		$packetSound->x = $this->x;
+		$packetSound->y = $this->y;
+		$packetSound->z = $this->z;
+		$packetSound->soundName = "item.trident.hit";
+		$packetSound->volume = 6;
+		$packetSound->pitch = 2;
+		$entityHit->addEffect(new TridentInstance(TridentEffect::getEffect(TridentEffect::NAUSEA), 6, 2, true));
+                $entityHit->sendMessage("§l§b(§c!§b) §rYou got killed by getting a one shot kill with a §bLegendary Trident§r's opponent holder!");
+		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 
 	public function onHitBlock(Block $blockHit, RayTraceResult $hitResult): void{
 		parent::onHitBlock($blockHit, $hitResult);
-		$pk = new TridentSound();
-		$pk->x = $this->x;
-		$pk->y = $this->y;
-		$pk->z = $this->z;
-		$pk->soundName = "item.trident.hit_ground";
-		$pk->volume = 6;
-		$pk->pitch = 2;
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetSound = new TridentSound();
+		$packetSound->x = $this->x;
+		$packetSound->y = $this->y;
+		$packetSound->z = $this->z;
+		$packetSound->soundName = "item.trident.hit_ground";
+		$packetSound->volume = 6;
+		$packetSound->pitch = 2;
+		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 }
