@@ -28,7 +28,7 @@ use pocketmine\math\{
         Vector2, AxisAlignedBB
 };
 use pocketmine\network\mcpe\protocol\{
-	AnimatePacket, MovePlayerPacket, MoveEntityAbsolutePacket
+	AnimatePacket as SwingPacket, MovePlayerPacket, MoveEntityAbsolutePacket as MovementPacket
 };
 use pocketmine\event\entity\{
 	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
@@ -65,12 +65,12 @@ class BotListener implements Listener {
 			if($ev instanceof EntityDamageByEntityEvent){
 				$damager = $ev->getDamager();
 				if($entity instanceof BotHuman){
-					$pk = new AnimatePacket();
-					$pk->entityRuntimeId = $entity->getId();
-					$pk->action = AnimatePacket::ACTION_SWING_ARM;
-					$damager->dataPacket($pk);
+					$packetSwing = new SwingPacket();
+					$packetSwing->entityRuntimeId = $entity->getId();
+					$packetSwing->action = SwingPacket::ACTION_SWING_ARM;
+					$damager->dataPacket($packetSwing);
 					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true));
-                    $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
+                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
 				}
 		  }
 	}
@@ -83,18 +83,18 @@ class BotListener implements Listener {
             	return;
             }
             $distance = 7;
-    		foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
+    	foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
             if($entity instanceof BotHuman){
-                $pk = new MoveEntityAbsolutePacket();
+                $packetMovement = new MovementPacket();
                 $v = new Vector2($entity->x, $entity->z);
                 $yaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
             	$pitch = ((atan2($v->distance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
-                $pk->entityRuntimeId = $entity->getId();
-                $pk->position = $entity->asVector3()->add(0, 1.5, 0);
-                $pk->yaw = $yaw;
-                $pk->headYaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
-                $pk->pitch = $pitch;
-                $player->dataPacket($pk);
+                $packetMovement->entityRuntimeId = $entity->getId();
+                $packetMovement->position = $entity->asVector3()->add(0, 1.5, 0);
+                $packetMovement->yaw = $yaw;
+                $packetMovement->headYaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
+                $packetMovement->pitch = $pitch;
+                $player->dataPacket($packetMovement);
                 $entity->setRotation($yaw, $pitch);
               }
            }
