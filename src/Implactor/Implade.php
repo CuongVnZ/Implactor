@@ -177,8 +177,8 @@ class Implade extends PluginBase implements Listener {
 			$player = $ev->getPlayer();
 			$player->setHealth(20);
 			$this->getScheduler()->scheduleDelayedTask(new TotemRespawnTask($this, $player), 1);
-			$sender->addEffect(new EffectInstance(Effect::getEffect(Effect::NAUSEA), 4, 3, true));
-			$sender->addEffect(new EffectInstance(Effect::getEffect(Effect::BLINDNESS), 4, 3, true));
+			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::NAUSEA), 4, 3, true));
+			$player->addEffect(new EffectInstance(Effect::getEffect(Effect::BLINDNESS), 4, 3, true));
 	                $player->addTitle("§l§cYOU ARE DEAD", "§fOuch, what just happend?");
 		        $player->setGamemode(Player::SURVIVAL);
 			
