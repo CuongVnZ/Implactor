@@ -85,7 +85,7 @@ class ThrownTrident extends TridentProjectile {
 		$packetSound->volume = 6;
 		$packetSound->pitch = 2;
 		$entityHit->addEffect(new TridentInstance(TridentEffect::getEffect(TridentEffect::NAUSEA), 6, 2, true));
-                $entityHit->sendMessage("§l§b(§c!§b) §rYou got killed by getting a one shot kill with a §bLegendary Trident§r's opponent holder!");
+                $entityHit->sendMessage("§l§b(§c!§b) §rYou got killed by a one shot kill with §bLegendary Trident§r's opponent holder!");
 		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 
