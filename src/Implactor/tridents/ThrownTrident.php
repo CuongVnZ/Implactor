@@ -82,10 +82,9 @@ class ThrownTrident extends TridentProjectile {
 		$packetSound->y = $this->y;
 		$packetSound->z = $this->z;
 		$packetSound->soundName = "item.trident.hit";
-		$packetSound->volume = 6;
+		$packetSound->volume = 5;
 		$packetSound->pitch = 2;
 		$entityHit->addEffect(new TridentInstance(TridentEffect::getEffect(TridentEffect::WEAKNESS), 3, 2, true));
-                $entityHit->sendMessage("§l§b(§c!§b) §rYou got killed by a one shot kill with §bLegendary Trident§r's opponent holder!");
 		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 
@@ -96,7 +95,7 @@ class ThrownTrident extends TridentProjectile {
 		$packetSound->y = $this->y;
 		$packetSound->z = $this->z;
 		$packetSound->soundName = "item.trident.hit_ground";
-		$packetSound->volume = 6;
+		$packetSound->volume = 5;
 		$packetSound->pitch = 2;
 		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
