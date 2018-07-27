@@ -34,10 +34,10 @@ use Implactor\tridents\{
 
 class Trident extends Weapon {
 
-	public const TRIDENT_SEA_WEAPON = "§bMysterious Legendary Trident§r";
+	public const TRIDENT_SEA_WEAPON = "Â§bMysterious Legendary TridentÂ§f";
 
 	public function __construct($meta = 0, $count = 1){
-        parent::__construct(self::TRIDENT, $meta, "§bMysterious Legendary Trident§r");
+        parent::__construct(self::TRIDENT, $meta, "Â§bMysterious Legendary TridentÂ§f");
 	}
 
 	public function getMaxDurability(): int{
