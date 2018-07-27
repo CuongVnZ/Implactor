@@ -87,13 +87,13 @@ class BotListener implements Listener {
             if($entity instanceof BotHuman){
                 $packetMovement = new MovementPacket();
                 $v = new Vector2($entity->x, $entity->z);
-                $yaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
-            	$pitch = ((atan2($v->distance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
+                $xRot = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
+            	$zRot = ((atan2($v->distance($player->x, $player->z), $player->y - $entity->y) * 180) / M_PI) - 90;
                 $packetMovement->entityRuntimeId = $entity->getId();
                 $packetMovement->position = $entity->asVector3()->add(0, 1.5, 0);
-                $packetMovement->yaw = $yaw;
-                $packetMovement->headYaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
-                $packetMovement->pitch = $pitch;
+                $packetMovement->xRot = $xRot;
+                $packetMovement->yRot = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
+                $packetMovement->zRot = $zRot;
                 $player->sendDataPacket($packetMovement);
                 $entity->setRotation($yaw, $pitch);
               }
