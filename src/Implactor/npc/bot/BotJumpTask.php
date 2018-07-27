@@ -27,6 +27,7 @@ namespace Implactor\npc\bot;
 use pocketmine\math\Vector2;
 use pocketmine\entity\Entity;
 use pocketmine\scheduler\Task;
+
 use Implactor\Implade;
 use Implactor\npc\bot\BotHuman;
 

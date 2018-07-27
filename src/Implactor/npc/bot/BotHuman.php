@@ -24,7 +24,7 @@
 declare(strict_types=1);
 namespace Implactor\npc\bot;
 
-use pocketmine\entity\Human;
+use pocketmine\entity\Human as Bot;
 
-class BotHuman extends Human {
+class BotHuman extends Bot {
 }

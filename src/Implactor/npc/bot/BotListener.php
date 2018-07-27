@@ -69,8 +69,9 @@ class BotListener implements Listener {
 					$packetSwing->entityRuntimeId = $entity->getId();
 					$packetSwing->action = SwingPacket::ACTION_SWING_ARM;
 					$damager->dataPacket($packetSwing);
-					$damager->addEffect(new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true));
-                                        $damager->addEffect(new EffectInstance(Effect::getEffect(Effect::SLOWNESS), 9, 2, true));
+					$effectdamager = new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true);
+					$effectdamager = new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true);
+					$damager->addEffect($effectdamager);
 				}
 		  }
 	}
@@ -79,11 +80,10 @@ class BotListener implements Listener {
     		$player = $ev->getPlayer();
     		$from = $ev->getFrom();
     		$to = $ev->getTo();
-            if($from->distance($to) < 0.1) {
+            if($from->distance($to) < 0.1){
             	return;
             }
-            $distance = 7;
-    	foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy($distance, $distance, $distance), $player) as $entity){
+        	foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->expandedCopy(9, 9, 9), $player) as $entity){
             if($entity instanceof BotHuman){
                 $packetMovement = new MovementPacket();
                 $v = new Vector2($entity->x, $entity->z);
@@ -94,7 +94,7 @@ class BotListener implements Listener {
                 $packetMovement->yaw = $yaw;
                 $packetMovement->headYaw = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
                 $packetMovement->pitch = $pitch;
-                $player->dataPacket($packetMovement);
+                $player->sendDataPacket($packetMovement);
                 $entity->setRotation($yaw, $pitch);
               }
            }
