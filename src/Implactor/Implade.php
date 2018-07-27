@@ -275,19 +275,20 @@ class Implade extends PluginBase implements Listener {
 		       "Pos" => new ListTag("Pos", [
 		                 new DoubleTag("", $player->x),
 		                 new DoubleTag("", $player->y),
-		                 new DoubleTag("", $player->z)
+		                 new DoubleTag("", $player->z)       
+                       ]),
 		       "Motion" => new ListTag("Motion", [
 		                 new DoubleTag("", 0),
 				         new DoubleTag("", 0),
 				         new DoubleTag("", 0)
-				]);
-				"Rotation" => new ListTag("Rotation", [
+                       ]),
+                       "Rotation" => new ListTag("Rotation", [
 				         new FloatTag("", 0),
 				         new FloatTag("", 0)
-				])
-			]);
-			$soccerEntity = Entity::createEntity($entity, $soccerLevel, $soccerNBT);
-			$soccerEntity->spawnToAll();
+                       ]),
+                    ]);
+		    $soccerEntity = Entity::createEntity($entity, $soccerLevel, $soccerNBT);
+                    $soccerEntity->spawnToAll();
 		}
 	
 		public function summonBot(Player $player, string $botname): void{
