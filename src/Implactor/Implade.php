@@ -649,8 +649,8 @@ class Implade extends PluginBase implements Listener {
      
 		public function getBook(Player $player): void{
 			$ibook = Item::get(Item::WRITTEN_BOOK, 0, 1);
-			$ibookEnchantment = Item::getEnchantment(19);
-			$ibookEnchantment = Item::getEnchantment(5);
+			$ibookEnchantment = Enchantment::getEnchantment(19);
+			$ibookEnchantment = Enchantment::getEnchantment(5);
 			$ibookInstance = new EnchantmentInstance($ibookEnchantment, 5); 
 			$ibook->addEnchantment($ibookInstance);
 		    $ibook->setTitle("§l§aBook §bof §cImplactor");
