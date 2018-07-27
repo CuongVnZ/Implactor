@@ -42,15 +42,16 @@ class GuardianJoinTask extends Task {
 	private $plugin;
 
 	public function __construct(Implade $plugin, Player $player){
-                $this->plugin = $plugin;
-                $this->player = $player;
+        $this->plugin = $plugin;
+        $this->player = $player;
 	}
 	
 	public function onRun(int $currentTick): void{
+		$player = $this->player;
 		$packetJoin = new JoinPacket();
 		$packetJoin->evid = JoinPacket::EVENT_GUARDIAN_CURSE;
 		$packetJoin->data = 0;
-		$packetJoin->position = $this->player->asVector3();
-		$this->player->dataPacket($packetJoin);
+		$packetJoin->position = $player->asVector3();
+		$player->sendDataPacket($packetJoin);
 	}
 }

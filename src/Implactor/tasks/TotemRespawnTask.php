@@ -25,10 +25,11 @@ class TotemRespawnTask extends Task {
 	}
 	
 	public function onRun(int $currentTick): void{
+		$player = $this->player;
 		$packetRespawn = new RespawnPacket();
 		$packetRespawn->evid = RespawnPacket::EVENT_SOUND_TOTEM;
 		$packetRespawn->data = 0;
-		$packetRespawn->position = $this->player->asVector3();
-		$this->player->dataPacket($packetRespawn);
+		$packetRespawn->position = $player->asVector3();
+		$player->sendDataPacket($packetRespawn);
 	}
 }
