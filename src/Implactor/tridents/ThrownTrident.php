@@ -34,10 +34,10 @@ use pocketmine\entity\{
         Entity, Effect as TridentEffect, EffectInstance as TridentInstance
 };
 use pocketmine\item\enchantment\{
-	    Enchantment as LegendaryEnchantment, EnchantmentInstance as LegendaryEnchantmentInstance
+	    Enchantment, EnchantmentInstance
 };
 use pocketmine\block\Block;
-use pocketmine\item\Item as LegendaryItem;
+use pocketmine\item\Item as TridentItem;
 use pocketmine\level\Level;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
 use pocketmine\nbt\tag\CompoundTag;
@@ -59,14 +59,14 @@ class ThrownTrident extends TridentProjectile {
 		if($this->blockHit === \null){
 		     return;
 	    }
-		$tridentItem = LegendaryItem::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_SEA_WEAPON));
+		$tridentItem = TridentItem::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_SEA_WEAPON));
 		$tridentInventory = $player->getInventory();
 		
-		$tridentEnchantment = LegendaryEnchantment::getEnchantment(29); //×-> Implaing | Enchantment
-		$tridentEnchantment = LegendaryEnchantment::getEnchantment(30); //×-> Riptide | Enchantment
-		$tridentEnchantment = LegendaryEnchantment::getEnchantment(31); //×-> Loyalty | Enchantment
-		$tridentEnchantment = LegendaryEnchantment::getEnchantment(32); //×-> Channeling | Enchantment
-		$tridentInstance = new LegendaryEnchantmentInstance($tridentEnchantment, 3); //×-> Max Level 3 | Enchantments
+		$tridentEnchantment = Enchantment::getEnchantment(29); //Ã—-> Implaing | Enchantment
+		$tridentEnchantment = Enchantment::getEnchantment(30); //Ã—-> Riptide | Enchantment
+		$tridentEnchantment = Enchantment::getEnchantment(31); //Ã—-> Loyalty | Enchantment
+		$tridentEnchantment = Enchantment::getEnchantment(32); //Ã—-> Channeling | Enchantment
+		$tridentInstance = new EnchantmentInstance($tridentEnchantment, 1); //Ã—-> Max Level 3 | Enchantments
 		$tridentItem->addEnchantment($tridentInstance);
 		
 		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
