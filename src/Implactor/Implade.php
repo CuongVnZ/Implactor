@@ -226,7 +226,7 @@ class Implade extends PluginBase implements Listener {
              	foreach($level->getEntities() as $entity){
              	    if($player->getBoundingBox()->intersectsWith($entity->getBoundingBox())){
              	         if($entity instanceof SoccerSlime){
-                            $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ()); // Code from xxNiceYT
+                            $entity->knockBack($player, 1, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ()); // Credited to xxNiceYT with a codes.
                               }
                         }
                   }
@@ -326,7 +326,7 @@ class Implade extends PluginBase implements Listener {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
-				$sender->sendMessage("§eYou have spawned the soccer ball! Wait uh? It's a slime?");
+				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait a minute, Is it slime?");
                 $sender->getLevel()->addSound(new FizzSound($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
