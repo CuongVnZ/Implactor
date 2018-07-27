@@ -1,11 +1,10 @@
 name: Implactor
-version: IR-1.5.1
+version: IR-1.6
 api:
-- 3.0.0
-- 3.1.0
+- 3.1.1
 - 4.0.0
 main: Implactor\Implade
-description: A plugin which has a features for Minecraft Bedrock
+description: A elite plugin, more added features for own servers!
 author: Zadezter
 website: https://github.com/ImpladeDeveloped
 
@@ -49,11 +48,14 @@ commands:
     gmsc:
          description: Change the gamemode to Spectator!
          permission: implactor.gamemode
+    soccer:
+         description: Spawn the soccer ball!
+         permission: implactor.soccer
          
 permissions:
     implactor.*:
+     description: "Allow operators get access to all Implactor commands"
      default: op
-     description: "Allows all access to all Implactor commands"
     implactor.wild:
      description: "Allow players to random teleporting to wilderness"
      default: true
@@ -64,10 +66,10 @@ permissions:
      description: "Allow players to open the player visibility menu UI"
      default: true
     implactor.bot:
-     description: "Allow OP staff members to spawn their own bot human"
+     description: "Allow operators to spawn their own bot human"
      default: op
     implactor.broadcast:
-     description: "Allow OP staff members to broadcast their messages to all online players"
+     description: "Allow operators to broadcast their messages to all online players"
      default: op
     implactor.book:
      description: "Allow players to get a book with a command"
@@ -79,8 +81,11 @@ permissions:
      description: "Allow players to see the command list"
      default: true
     implactor.vision:
-     description: "Allow OP staff members to open the vision menu UI"
+     description: "Allow operators to open the vision menu UI"
      default: op
     implactor.gamemode:
-     description: "Allow OP staff to change their gamemodes"
+     description: "Allow operators to change their gamemodes in-game server"
+     default: op
+    implactor.soccer:
+     description: "Allow operators to spawn their soccer ball"
      default: op

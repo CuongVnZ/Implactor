@@ -28,7 +28,7 @@ use pocketmine\level\{
 	Level, Location, Position
 };
 use pocketmine\level\particle\{
-	HappyVillagerParticle as Experience, PortalParticle as Portal
+	HappyVillagerParticle as Experience, PortalParticle as Portal, WaterParticle as Water
 };
 use pocketmine\{
 	Player, Server
@@ -56,19 +56,26 @@ class SpawnParticles extends Task {
 		$center = new Vector3($x, $y, $z);
 		$radius = 0.5;
 		$count = 55;
-		$spawnexperience = new Experience($center, $r, $g, $b, 1);
+		$spawnExperience = new Experience($center, $r, $g, $b, 1);
 		for($yaw = 0, $y = $center->y; $y < $center->y + 4; $yaw += (M_PI * 2) / 20, $y += 1 / 20){
 			$x = -sin($yaw) + $center->x;
 			$z = cos($yaw) + $center->z;
-			$spawnexperience->setComponents($x, $y, $z);
-			$level->addParticle($spawnexperience);
+			$spawnExperience->setComponents($x, $y, $z);
+			$level->addParticle($spawnExperience);
 	   }
-		$spawnportal = new Portal($center, $r, $g, $b, 1);
+		$spawnPortal = new Portal($center, $r, $g, $b, 1);
 		for($yaw = 0, $y = $center->y; $y < $center->y + 4; $yaw += (M_PI * 2) / 20, $y += 1 / 20){
 			$x = -sin($yaw) + $center->x;
 			$z = cos($yaw) + $center->z;
-			$spawnportal->setComponents($x, $y, $z);
-			$level->addParticle($spawnportal);
+			$spawnPortal->setComponents($x, $y, $z);
+			$level->addParticle($spawnPortal);
+		}
+		$spawnWater = new Water($center, $r, $g, $b, 1);
+		for($yaw = 0, $y = $center->y; $y < $center->y + 4; $yaw += (M_PI * 2) / 20, $y += 1 / 20){
+			$x = -sin($yaw) + $center->x;
+			$z = cos($yaw) + $center->z;
+			$spawnWater->setComponents($x, $y, $z);
+			$level->addParticle($spawnWater);
 		}
 	}
 }

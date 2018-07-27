@@ -28,12 +28,17 @@ use pocketmine\{
 	Player, Server
 };
 use pocketmine\network\mcpe\protocol\{
-	PlaySoundPacket as TridentSound, TakeItemEntityPacket as TakeTridentItem
+	PlaySoundPacket as TridentSoundPacket, TakeItemEntityPacket as TridentTakenPacket
+};
+use pocketmine\entity\{
+        Entity, Effect as TridentEffect, EffectInstance as TridentInstance
+};
+use pocketmine\item\enchantment\{
+	    Enchantment, EnchantmentInstance
 };
 use pocketmine\block\Block;
-use pocketmine\item\Item as Rare;
+use pocketmine\item\Item as TridentItem;
 use pocketmine\level\Level;
-use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile as TridentProjectile;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\math\RayTraceResult;
@@ -44,27 +49,32 @@ class ThrownTrident extends TridentProjectile {
 	public $height = 0.35;
 	public $width = 0.25;
 	public $gravity = 0.10;
-	protected $damage = 6;
+	protected $damage = 7;
 
 	public function __construct(Level $level, CompoundTag $nbt, ?Entity $shootingEntity = \null){
-          parent::__construct($level, $nbt, $shootingEntity);
+        parent::__construct($level, $nbt, $shootingEntity);
 	}
 
 	public function onCollideWithPlayer(Player $player): void{
 		if($this->blockHit === \null){
+		     return;
+	    }
+		$tridentItem = TridentItem::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_SEA_WEAPON));
+		$tridentInventory = $player->getInventory();
+		
+		$tridentEnchantment = Enchantment::getEnchantment(31); //×-> Loyalty | Enchantment
+		$tridentInstance = new EnchantmentInstance($tridentEnchantment, 1); //×-> Max Level 1 | Enchantments
+		$tridentItem->addEnchantment($tridentInstance);
+		
+		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
 		return;
 		}
-		$tridentItem = Rare::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_WEAPON));
-		$tridentOnInventory = $player->getInventory();
-		if($player->isSurvival() and !$tridentOnInventory->canAddItem($tridentItem)){
-		return;
-		}
-		$pk = new TakeTridentItem();
-		$pk->eid = $player->getId();
-		$pk->target = $this->getId();
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetTaken = new TridentTakenPacket();
+		$packetTaken->eid = $player->getId();
+		$packetTaken->target = $this->getId();
+		$this->server->broadcastPacket($this->getViewers(), $packetTaken);
 		if(!$player->isCreative()){
-		$tridentOnInventory->addItem(clone $tridentItem);
+		$tridentInventory->addItem($tridentItem);
 		}
 		$this->flagForDespawn();
 	}
@@ -74,25 +84,25 @@ class ThrownTrident extends TridentProjectile {
 		return;
 		}
 		parent::onHitEntity($entityHit, $hitResult);
-		$pk = new TridentSound();
-		$pk->x = $this->x;
-		$pk->y = $this->y;
-		$pk->z = $this->z;
-		$pk->soundName = "item.trident.hit";
-		$pk->volume = 1;
-		$pk->pitch = 1;
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetSound = new TridentSoundPacket();
+		$packetSound->x = $this->x;
+		$packetSound->y = $this->y;
+		$packetSound->z = $this->z;
+		$packetSound->soundName = "item.trident.hit";
+		$packetSound->volume = 5;
+		$packetSound->pitch = 3;
+		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 
 	public function onHitBlock(Block $blockHit, RayTraceResult $hitResult): void{
 		parent::onHitBlock($blockHit, $hitResult);
-		$pk = new TridentSound();
-		$pk->x = $this->x;
-		$pk->y = $this->y;
-		$pk->z = $this->z;
-		$pk->soundName = "item.trident.hit_ground";
-		$pk->volume = 1;
-		$pk->pitch = 1;
-		$this->server->broadcastPacket($this->getViewers(), $pk);
+		$packetSound = new TridentSoundPacket();
+		$packetSound->x = $this->x;
+		$packetSound->y = $this->y;
+		$packetSound->z = $this->z;
+		$packetSound->soundName = "item.trident.hit_ground";
+		$packetSound->volume = 5;
+		$packetSound->pitch = 3;
+		$this->server->broadcastPacket($this->getViewers(), $packetSound);
 	}
 }

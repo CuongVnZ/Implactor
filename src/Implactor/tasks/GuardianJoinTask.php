@@ -32,7 +32,7 @@ use pocketmine\{
 };
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\LevelEventPacket;
+use pocketmine\network\mcpe\protocol\LevelEventPacket as JoinPacket;
 
 use Implactor\Implade;
 
@@ -42,15 +42,16 @@ class GuardianJoinTask extends Task {
 	private $plugin;
 
 	public function __construct(Implade $plugin, Player $player){
-                $this->plugin = $plugin;
-                $this->player = $player;
+        $this->plugin = $plugin;
+        $this->player = $player;
 	}
 	
 	public function onRun(int $currentTick): void{
-		$pk = new LevelEventPacket();
-		$pk->evid = LevelEventPacket::EVENT_GUARDIAN_CURSE;
-		$pk->data = 0;
-		$pk->position = $this->player->asVector3();
-		$this->player->dataPacket($pk);
+		$player = $this->player;
+		$packetJoin = new JoinPacket();
+		$packetJoin->evid = JoinPacket::EVENT_GUARDIAN_CURSE;
+		$packetJoin->data = 0;
+		$packetJoin->position = $player->asVector3();
+		$player->sendDataPacket($packetJoin);
 	}
 }

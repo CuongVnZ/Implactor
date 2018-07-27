@@ -24,9 +24,9 @@
 declare(strict_types=1);
 namespace Implactor\tridents;
 
+use pocketmine\Player;
 use pocketmine\entity\Entity;
 use pocketmine\item\Tool as Weapon;
-use pocketmine\Player;
 
 use Implactor\tridents\{
 	ThrownTrident, TridentEntityManager, TridentItemManager
@@ -34,14 +34,14 @@ use Implactor\tridents\{
 
 class Trident extends Weapon {
 
-	public const TRIDENT_WEAPON = "Trident";
+	public const TRIDENT_SEA_WEAPON = "§bMysterious Legendary Trident§f";
 
 	public function __construct($meta = 0, $count = 1){
-          parent::__construct(self::TRIDENT, $meta, "Trident");
+        parent::__construct(self::TRIDENT, $meta, "§bMysterious Legendary Trident§f");
 	}
 
 	public function getMaxDurability(): int{
-          return 251;
+          return 251; // Trident ID
 	}
 
 	public function onReleaseUsing(Player $player): bool{
@@ -51,18 +51,19 @@ class Trident extends Weapon {
 		$tridentNBT = Entity::createBaseNBT(
 			$player->add(0, $player->getEyeHeight(), 0),
 			$player->getDirectionVector()->multiply(4),
-			($player->yaw > 180 ? 360 : 0) - $player->yaw, -$player->pitch
+			($player->yaw > 180 ? 360 : 0) - $player->yaw,  -$player->pitch
 		);
-		$tridentWeaponNBT = $this->nbtSerialize();
-		$tridentWeaponNBT->setName(self::TRIDENT_WEAPON);
-		$tridentNBT->setTag($tridentWeaponNBT);
+		$tridentOnNBT = $this->nbtSerialize();
+		$tridentOnNBT->setName(self::TRIDENT_SEA_WEAPON);
+		$tridentNBT->setTag($tridentOnNBT);
 		if($player->isSurvival()){
 		$this->applyDamage(1);
 		}
 		$entity = Entity::createEntity("Thrown Trident", $player->getLevel(), $tridentNBT, $player, $this);
 		$entity->spawnToAll();
 		if($player->isSurvival()){
-		$player->getInventory()->removeItem(clone $this);
+		$tridentInventory = $player->getInventory();
+		$tridentInventory->removeItem(clone $this);
 		}
 		return true;
 	}
@@ -76,6 +77,6 @@ class Trident extends Weapon {
 	}
 
 	public function getAttackPoints(): int{
-		return 6;
+		return 7;
 	}
 }

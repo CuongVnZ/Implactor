@@ -10,7 +10,7 @@ use pocketmine\{
 };
 use pocketmine\scheduler\Task;
 use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\LevelEventPacket;
+use pocketmine\network\mcpe\protocol\LevelEventPacket as RespawnPacket;
 
 use Implactor\Implade;
 
@@ -25,10 +25,11 @@ class TotemRespawnTask extends Task {
 	}
 	
 	public function onRun(int $currentTick): void{
-		$pk = new LevelEventPacket();
-		$pk->evid = LevelEventPacket::EVENT_SOUND_TOTEM;
-		$pk->data = 0;
-		$pk->position = $this->player->asVector3();
-		$this->player->dataPacket($pk);
+		$player = $this->player;
+		$packetRespawn = new RespawnPacket();
+		$packetRespawn->evid = RespawnPacket::EVENT_SOUND_TOTEM;
+		$packetRespawn->data = 0;
+		$packetRespawn->position = $player->asVector3();
+		$player->sendDataPacket($packetRespawn);
 	}
 }

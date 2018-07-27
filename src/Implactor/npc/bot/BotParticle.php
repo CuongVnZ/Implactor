@@ -50,7 +50,6 @@ class BotParticle extends Task {
 	
 	public function onRun(int $tick): void{
 		$entity = $this->entity;
-		
 		if($entity instanceof BotHuman){
 			$botparticle = $entity->getLevel();
 			if($entity->isAlive()){

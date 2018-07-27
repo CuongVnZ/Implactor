@@ -42,20 +42,19 @@ class BotWalkingTask extends Task {
 
 	public function onRun(int $tick): void{
 			$entity = $this->entity;
-			$distance = 0.7;
 			if($entity instanceof BotHuman){
 				switch($entity->getDirection()){
 				case 0:
-				$entity->setMotion(new Vector3($distance, 0, 0));
+				$entity->setMotion(new Vector3(0.8, 0, 0));
 				break;
 				case 1:
-				$entity->setMotion(new Vector3(0, 0, $distance));
+				$entity->setMotion(new Vector3(0, 0, 0.8));
 				break;
 				case 2:
-				$entity->setMotion(new Vector3(-$distance, 0, 0));
+				$entity->setMotion(new Vector3(-0.8, 0, 0));
 				break;
 				case 3:
-				$entity->setMotion(new Vector3(0, 0, -$distance));
+				$entity->setMotion(new Vector3(0, 0, -0.8));
 				break;
 			}
 		}
