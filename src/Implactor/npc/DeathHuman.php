@@ -24,7 +24,7 @@
 declare(strict_types=1);
 namespace Implactor\npc;
 
-use pocketmine\entity\Human;
+use pocketmine\entity\Human as Corpse;
 
-class DeathHuman extends Human {
+class DeathHuman extends Corpse {
 }
