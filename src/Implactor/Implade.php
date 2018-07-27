@@ -279,13 +279,13 @@ class Implade extends PluginBase implements Listener {
                        ]),
 		       "Motion" => new ListTag("Motion", [
 		                 new DoubleTag("", 0),
-				         new DoubleTag("", 0),
-				         new DoubleTag("", 0)
+				 new DoubleTag("", 0),
+			         new DoubleTag("", 0)
                        ]),
                        "Rotation" => new ListTag("Rotation", [
 				         new FloatTag("", 0),
 				         new FloatTag("", 0)
-                       ]),
+                       ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entity, $soccerLevel, $soccerNBT);
                     $soccerEntity->spawnToAll();
