@@ -226,7 +226,7 @@ class Implade extends PluginBase implements Listener {
              	foreach($level->getEntities() as $entity){
              	    if($player->getBoundingBox()->intersectsWith($entity->getBoundingBox())){
              	         if($entity instanceof SoccerSlime){
-             	              $entity->knockBack($player, $player->getDirectionVector()->getX()->getY()->getZ());
+             	              $entity->knockBack($player, $player->getDirectionVector()->getX()->getY()->getZ() as Vector3);
                               }
                         }
                   }
