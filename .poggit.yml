@@ -1,9 +1,17 @@
---- 
-##-- Implactor on Poggit CI --##
+---
+#×
+# Implactor plugin on Poggit-CI
+# Designed by Zadezter
+#x
+
+# Branch from Github.
 branches:
+# Default and current "Implade" branch!
 - Implade
+
+# Projects on Implactor.
 projects:
   Implactor:
     path: ""
-    icon: ""
+    icon: "ILogo.png"
 ...
