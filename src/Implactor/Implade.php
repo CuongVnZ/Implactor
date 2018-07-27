@@ -272,20 +272,20 @@ class Implade extends PluginBase implements Listener {
 	    public function soccerBall(Player $player, string $entity): void{
 		    $soccerLevel = $player->getLevel();
 		    $soccerNBT = new CompoundTag("", [
-		       "Pos" => new ListTag("Pos", [
-		                 new DoubleTag("", $player->x),
-		                 new DoubleTag("", $player->y),
-		                 new DoubleTag("", $player->z)       
-                       ]),
-		       "Motion" => new ListTag("Motion", [
-		                 new DoubleTag("", 0),
-				 new DoubleTag("", 0),
-			         new DoubleTag("", 0)
-                       ]),
-                       "Rotation" => new ListTag("Rotation", [
-				         new FloatTag("", 0),
-				         new FloatTag("", 0)
-                       ])
+		       new ListTag("Pos", [
+				   new DoubleTag("", $player->x),
+				   new DoubleTag("", $player->y),
+				   new DoubleTag("", $player->z)
+			   ]),
+			   new ListTag("Motion", [
+				   new DoubleTag("", 0),
+				   new DoubleTag("", 0),
+				   new DoubleTag("", 0)
+			   ]),
+			   new ListTag("Rotation", [
+				   new FloatTag("", 0),
+				   new FloatTag("", 0)
+			   ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entity, $soccerLevel, $soccerNBT);
                     $soccerEntity->spawnToAll();
@@ -326,7 +326,7 @@ class Implade extends PluginBase implements Listener {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
-				$sender->sendMessage("§eYou have spawned the soccer ball! Wait uh? It's a slime?);
+				$sender->sendMessage("§eYou have spawned the soccer ball! Wait uh? It's a slime?");
                 $sender->getLevel()->addSound(new FizzSound($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
