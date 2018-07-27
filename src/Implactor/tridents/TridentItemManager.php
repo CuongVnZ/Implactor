@@ -21,11 +21,11 @@
 *
 *
 **/
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace Implactor\tridents;
 
 use pocketmine\item\{
-	Item as Legend, ItemFactory as ImpladeTrident
+	Item as LegendaryItem, ItemFactory as TridentItem
 };
 
 use Implactor\Implade;
@@ -34,7 +34,7 @@ use Implactor\tridents\Trident;
 class TridentItemManager {
 	
 	public static function init(): void{
-          ImpladeTrident::registerItem(new Trident(), true);
-          Legend::initCreativeItems();
+        TridentItem::registerItem(new Trident(), true);
+        LegendaryItem::initCreativeItems();
 	}
 }

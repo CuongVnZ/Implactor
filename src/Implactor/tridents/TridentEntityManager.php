@@ -24,14 +24,15 @@
 declare(strict_types=1);
 namespace Implactor\tridents;
 
-use pocketmine\entity\Entity as ImpladeTrident;
+use pocketmine\entity\Entity as TridentEntity;
 
 use Implactor\Implade;
 use Implactor\tridents\ThrownTrident;
 
-class TridentEntityManager extends ImpladeTrident {
+class TridentEntityManager extends TridentEntity {
 	
 	public static function init(): void{
-               ImpladeTrident::registerEntity(ThrownTrident::class, true, ['Thrown Trident', 'minecraft:thrown_trident']);
-		}
-	}
+        TridentEntity::registerEntity(ThrownTrident::class, true, ['Thrown Trident', 'minecraft:thrown_trident']);
+    }
+}
+    
