@@ -51,8 +51,8 @@ class ThrownTrident extends TridentProjectile {
 	public $gravity = 0.10;
 	protected $damage = 7;
 
-	public function __construct(Level $level, Enchantment $enchantment, CompoundTag $nbt, ?Entity $shootingEntity = \null){
-        parent::__construct($level, $enchantment, $nbt, $shootingEntity);
+	public function __construct(Level $level, CompoundTag $nbt, ?Entity $shootingEntity = \null){
+        parent::__construct($level, $nbt, $shootingEntity);
 	}
 
 	public function onCollideWithPlayer(Player $player): void{
@@ -62,11 +62,8 @@ class ThrownTrident extends TridentProjectile {
 		$tridentItem = TridentItem::nbtDeserialize($this->namedtag->getCompoundTag(Trident::TRIDENT_SEA_WEAPON));
 		$tridentInventory = $player->getInventory();
 		
-		$tridentEnchantment = Enchantment::getEnchantment(29); //×-> Implaing | Enchantment
-		$tridentEnchantment = Enchantment::getEnchantment(30); //×-> Riptide | Enchantment
 		$tridentEnchantment = Enchantment::getEnchantment(31); //×-> Loyalty | Enchantment
-		$tridentEnchantment = Enchantment::getEnchantment(32); //×-> Channeling | Enchantment
-		$tridentInstance = new EnchantmentInstance($tridentEnchantment, 1); //×-> Max Level 3 | Enchantments
+		$tridentInstance = new EnchantmentInstance($tridentEnchantment, 1); //×-> Max Level 1 | Enchantments
 		$tridentItem->addEnchantment($tridentInstance);
 		
 		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
