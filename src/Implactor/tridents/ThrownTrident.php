@@ -51,8 +51,8 @@ class ThrownTrident extends TridentProjectile {
 	public $gravity = 0.10;
 	protected $damage = 7;
 
-	public function __construct(Level $level, CompoundTag $nbt, ?Entity $shootingEntity = \null){
-        parent::__construct($level, $nbt, $shootingEntity);
+	public function __construct(Level $level, Enchantment $enchantment, CompoundTag $nbt, ?Entity $shootingEntity = \null){
+        parent::__construct($level, $enchantment, $nbt, $shootingEntity);
 	}
 
 	public function onCollideWithPlayer(Player $player): void{
