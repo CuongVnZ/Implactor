@@ -55,6 +55,7 @@ use pocketmine\event\player\{
 	PlayerPreLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent, PlayerMoveEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
+use pocketmine\level\particle\FlameParticle as Ball;
 use pocketmine\event\Listener;
 use pocketmine\nbt\NBT;
 use pocketmine\block\Block;
@@ -114,8 +115,8 @@ class Implade extends PluginBase implements Listener {
             Entity::registerEntity(BotHuman::class, true);
             Entity::registerEntity(SoccerSlime::class, true);
             //* Clear Lagg *//
-            if(is_numeric(240)){ 
-                $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this, $this), 240 * 20);
+            if(is_numeric(480)){ 
+                $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this, $this), 480 * 20);
             }
              $this->loadAllTridents();
              $this->checkDepends();
@@ -227,7 +228,10 @@ class Implade extends PluginBase implements Listener {
              	    if($player->getBoundingBox()->intersectsWith($entity->getBoundingBox())){
              	         if($entity instanceof SoccerSlime){
                             $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
-                              }
+                            $entity->getLevel()->addParticle(new Ball($entity));
+                            $entity->setHealth(1000);
+                            $entity->setMaxHealth(1000);
+                            }
                         }
                   }
             }
