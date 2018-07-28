@@ -301,7 +301,7 @@ class Implade extends PluginBase implements Listener {
 	  }
 	
 		public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
-			if(strtolower($command->getName()) == "bot") {
+			if(strtolower($command->getName()) === "bot") {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.bot")){
 			if(count($args) < 1){
@@ -311,7 +311,7 @@ class Implade extends PluginBase implements Listener {
 				$this->summonBot($sender, $args[0]);
 				$sender->sendMessage("§eYou have spawned a §bbot §ewith named§c§r " . $args[0]);
 				$sender->getServer()->broadcastMessage("§7[§bBot§7]§f §e". $sender->getPlayer()->getName() ."§f has spawned a §bbot §fwith named §d" .$args[0]. "§f!");
-                $sender->getLevel()->addSound(new FizzSound($sender));
+                $sender->getLevel()->addSound(new Bot($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
 	            return false;
@@ -322,7 +322,7 @@ class Implade extends PluginBase implements Listener {
 			   }
 			    return true;
 		   }
-		   if(strtolower($command->getName()) == "soccer") {
+		   if(strtolower($command->getName()) === "soccer") {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
@@ -338,7 +338,7 @@ class Implade extends PluginBase implements Listener {
 			   }
 			    return true;
 		   }
-		   if(strtolower($command->getName()) == "icast") {
+		   if(strtolower($command->getName()) === "icast") {
 		   if($sender instanceof Player){
 		   if($sender->hasPermission("implactor.broadcast")){
 		   if(count($args) < 1){
@@ -356,7 +356,7 @@ class Implade extends PluginBase implements Listener {
 			 }
 			 return true;
 	     }
-	     if(strtolower($command->getName()) == "ibook") {
+	     if(strtolower($command->getName()) === "ibook") {
 		 if($sender instanceof Player){
 		 if($sender->hasPermission("implactor.book")){
 			 $this->getBook($sender);
@@ -372,7 +372,7 @@ class Implade extends PluginBase implements Listener {
 		   }
 		   return true;
 		}
-		if(strtolower($command->getName()) == "ping") {
+		if(strtolower($command->getName()) === "ping") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.ping")){
 			$sender->sendMessage($sender->getPlayer()->getName(). "§a's ping status: §7[§d". $sender->getPing() ."§ems§7]");
@@ -386,7 +386,7 @@ class Implade extends PluginBase implements Listener {
            }
            return true;
 		}
-		if(strtolower($command->getName()) == "wild") {
+		if(strtolower($command->getName()) === "wild") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.wild")){
 			$x = rand(1,999);
@@ -407,7 +407,7 @@ class Implade extends PluginBase implements Listener {
 			}
             return true;
 		}
-	    if(strtolower($command->getName()) == "ihelp") {
+	    if(strtolower($command->getName()) === "ihelp") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.command.help")){
         if(count($args) == 0){
@@ -451,7 +451,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 	    }
-	    if(strtolower($command->getName()) == "iabout") {
+	    if(strtolower($command->getName()) === "iabout") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.command.about")){
 			$sender->sendMessage("§8---=========================---");
@@ -472,7 +472,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
-		if(strtolower($command->getName()) == "gms") {
+		if(strtolower($command->getName()) === "gms") {
 		if(!$sender instanceof Player){
 		}
 		if(!$sender->hasPermission("implactor.gamemode")){
@@ -493,7 +493,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
-		if(strtolower($command->getName()) == "gmc") {
+		if(strtolower($command->getName()) === "gmc") {
 		if(!$sender instanceof Player){
 		}
 		if(!$sender->hasPermission("implactor.gamemode")){
@@ -514,7 +514,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
-		if(strtolower($command->getName()) == "gma") {
+		if(strtolower($command->getName()) === "gma") {
 		if(!$sender instanceof Player){
 		}
 		if(!$sender->hasPermission("implactor.gamemode")){
@@ -535,7 +535,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
-		if(strtolower($command->getName()) == "gmsc") {
+		if(strtolower($command->getName()) === "gmsc") {
 		if(!$sender instanceof Player){
 		}
 		if(!$sender->hasPermission("implactor.gamemode")){
@@ -556,7 +556,7 @@ class Implade extends PluginBase implements Listener {
 			}
 			return true;
 		}
-		if(strtolower($command->getName()) == "vision") {
+		if(strtolower($command->getName()) === "vision") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.vision")){
 		    $this->visionMenuUI($sender);
@@ -570,7 +570,7 @@ class Implade extends PluginBase implements Listener {
            }
            return true;
 		}
-		if(strtolower($command->getName()) == "pvisible") {
+		if(strtolower($command->getName()) === "pvisible") {
 		if($sender instanceof Player){
 		if($sender->hasPermission("implactor.playervisibility")){
 		    $this->visiblePlayerMenuUI($sender);
