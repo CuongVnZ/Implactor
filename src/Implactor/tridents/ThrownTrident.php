@@ -65,6 +65,8 @@ class ThrownTrident extends TridentProjectile {
 		$tridentEnchantment = Enchantment::getEnchantment(31); //×-> Loyalty | Enchantment
 		$tridentInstance = new EnchantmentInstance($tridentEnchantment, 1); //×-> Max Level 1 | Enchantments
 		$tridentItem->addEnchantment($tridentInstance);
+                // TODO: DATA_FLAG_SHOW_TRIDENT_ROPE , I don't know how to do that. (Loyalty Enchantment only)
+                // TODO: Make it work and added Loyalty enchantment to Trident after did "/give <player> trident"
 		
 		if($player->isSurvival() and !$tridentInventory->canAddItem($tridentItem)){
 		return;
