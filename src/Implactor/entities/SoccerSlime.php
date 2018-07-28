@@ -36,7 +36,7 @@ class SoccerSlime extends Soccer {
 		return "SoccerSlime";
 	}
 	
-	public $width = 0.53;
-	public $height = 0.53;
+	public $width = 0.56;
+	public $height = 0.56;
 }
 
