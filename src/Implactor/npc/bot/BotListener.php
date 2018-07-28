@@ -68,7 +68,7 @@ class BotListener implements Listener {
 					$packetSwing = new SwingPacket();
 					$packetSwing->entityRuntimeId = $entity->getId();
 					$packetSwing->action = SwingPacket::ACTION_SWING_ARM;
-					$damager->dataPacket($packetSwing);
+					$damager->sendDataPacket($packetSwing);
 					$effectdamager = new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true);
 					$effectdamager = new EffectInstance(Effect::getEffect(Effect::WEAKNESS), 9, 2, true);
 					$damager->addEffect($effectdamager);
