@@ -111,10 +111,10 @@ class Implade extends PluginBase implements Listener {
             $this->getServer()->getPluginManager()->registerEvents(new AntiCaps($this), $this);
             $this->getServer()->getPluginManager()->registerEvents(new BotListener($this), $this);
             Entity::registerEntity(DeathHuman::class, true);
-		    Entity::registerEntity(BotHuman::class, true);
-		    Entity::registerEntity(SoccerSlime::class, true);
-		   //* Clear Lagg *//
-		    if(is_numeric(240)){ 
+            Entity::registerEntity(BotHuman::class, true);
+            Entity::registerEntity(SoccerSlime::class, true);
+            //* Clear Lagg *//
+            if(is_numeric(240)){ 
                 $this->getScheduler()->scheduleRepeatingTask(new ClearLaggTask($this, $this), 240 * 20);
             }
              $this->loadAllTridents();
@@ -269,7 +269,7 @@ class Implade extends PluginBase implements Listener {
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
 	  }
 	
-	    public function soccerBall(Player $player, string $entity): void{
+	    public function soccerBall(Player $player, string $entityBall): void{
 		    $soccerLevel = $player->getLevel();
 		    $soccerNBT = new CompoundTag("", [
 		       new ListTag("Pos", [
@@ -287,7 +287,7 @@ class Implade extends PluginBase implements Listener {
 				   new FloatTag("", 0)
 			   ])
                     ]);
-		    $soccerEntity = Entity::createEntity($entity, $soccerLevel, $soccerNBT);
+		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);
                     $soccerEntity->spawnToAll();
 		}
 	
@@ -311,7 +311,7 @@ class Implade extends PluginBase implements Listener {
 				$this->summonBot($sender, $args[0]);
 				$sender->sendMessage("§eYou have spawned a §bbot §ewith named§c§r " . $args[0]);
 				$sender->getServer()->broadcastMessage("§7[§bBot§7]§f §e". $sender->getPlayer()->getName() ."§f has spawned a §bbot §fwith named §d" .$args[0]. "§f!");
-                $sender->getLevel()->addSound(new Bot($sender));
+                $sender->getLevel()->addSound(new FizzSound($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
 	            return false;
@@ -436,6 +436,7 @@ class Implade extends PluginBase implements Listener {
 			     $sender->sendMessage("§e/gmc §9- §fChange the gamemode to §e§lCREATIVE");
 			     $sender->sendMessage("§e/gma §9- §fChange the gamemode to §b§lADVENTURE");
 			     $sender->sendMessage("§e/gmsc §9- §fChange the gamemode to §b§lSPECTATOR");
+			     $sender->sendMessage("§e/soccer §9- §fSpawn the soccer ball, play and score §bGOAL§f!");
 			     break;
 			    }
               }
@@ -655,13 +656,13 @@ class Implade extends PluginBase implements Listener {
 			$ibook->addEnchantment($ibookInstance);
 		    $ibook->setTitle("§l§aBook §bof §cImplactor");
 		    $ibook->setPageText(0, "§4You are now reading on Book of Implactor!\n\n§0Created: §123 May 2018\nRemaked: §114 July 2018\n\n§0Author: §cZadezter\n§0Team: §cImpladeDeveloped\n\n\n§2This plugin and also a book are licensed under GNU General Public License v3.0!");
-		    $ibook->setPageText(1, "§3Implactor\n§2A elite plugin, more added features for Minecraft: Bedorck Edition servers!\n\n§4Thank you for using our plugin. If you have any bug issue, post on our issue at Github.\n\n§4Shall we get started? We added some informations and tutorials here!");
+		    $ibook->setPageText(1, "§3Implactor\n§2A elite plugin, more added features for Minecraft: Bedorck Edition servers!\n\n§4Thank you for using our plugin. If you have any bug issue, post on our issue at Github.\n\n§4Shall we get started? We added some informations!");
 		    $ibook->setPageText(2, "§5Bot Human\n§2A moving bot having a functional which can walk, swing, sneak/unsneak, particle and jump!\n\n§4This feature is a special for you, but there is little kind of annoying. But when the bot sees you, it will jump and walk to near you!");
 		
 		    // [START] About Trident on Book Pages \\
-		    $ibook->setPageText(3, "§bTrident\n§2A deadly one shot kill weapon with enchantments!\n\n§dIn Aquatic Update, one of the mysterious legendary trident is from the sea and owned by the former holder, Posideon! Until now, it is appeared to Implactor with a impossible damages and more enchantments!");
-		    $ibook->setPageText(4, "§dWith this power on Trident, they can charge and fast when in the sea for trying to escape from opponents, auto return to their's holder after throwed far away and finally, a impossible deadly one shot kill!\n§dThis is a extreme rarest item in-game server!");
-		    $ibook->setPageText(5, "§3Get a dangerous item from the sea. For staff who work on other servers, you can do some challanges and events for your players!\n\n§e- Zadezter\n§aP.S: Be a holder of Mysterious Legendary Trident and slain all opponents!");
+		    $ibook->setPageText(3, "§bTrident\n§2A deadly one shot kill weapon with enchantments!\n\n§dIn Aquatic Update, one of the mysterious legendary trident is from the sea and owned by the former holder, Posideon! Until now, it is appeared to Implactor with a impossible damages!");
+		    $ibook->setPageText(4, "§dWith this power on Trident, they can charge and fast when in the sea for trying to escape from opponents, auto return to their's holder after throwed far away and the impossible deadly one shot kill!\n§dThis is a extreme rarest item in-game server!");
+		    $ibook->setPageText(5, "§3Get a dangerous item from the sea. For staff who work on other servers, you can do some challanges and events for your players!\n\n§5- Zadezter\n§2P.S: Be a holder of Mysterious Legendary Trident and slain all opponents!");
 		    // [END] About Trident on Book Pages \\
 		
 		    $ibook->setAuthor("§l§eZadezter");
