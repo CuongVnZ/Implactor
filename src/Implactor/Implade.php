@@ -226,7 +226,7 @@ class Implade extends PluginBase implements Listener {
              	foreach($level->getEntities() as $entity){
              	    if($player->getBoundingBox()->intersectsWith($entity->getBoundingBox())){
              	         if($entity instanceof SoccerSlime){
-                            $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 2); // Credited to xxNiceYT with a codes.
+                            $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
                               }
                         }
                   }
@@ -288,6 +288,7 @@ class Implade extends PluginBase implements Listener {
 			   ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);
+		    $soccerEntity->setHealth(1000);
                     $soccerEntity->spawnToAll();
 		}
 	
