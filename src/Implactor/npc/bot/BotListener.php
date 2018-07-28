@@ -95,7 +95,7 @@ class BotListener implements Listener {
                 $packetMovement->yRot = ((atan2($player->z - $entity->z, $player->x - $entity->x) * 180) / M_PI) - 90;
                 $packetMovement->zRot = $zRot;
                 $player->sendDataPacket($packetMovement);
-                $entity->setRotation($yaw, $pitch);
+                $entity->setRotation($xRot, $zRot);
               }
            }
         }
