@@ -55,7 +55,7 @@ use pocketmine\event\player\{
 	PlayerPreLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent, PlayerMoveEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
-use pocketmine\level\particle\FlameParticle as Ball;
+use pocketmine\level\particle\HugeExplodeParticle as Ball;
 use pocketmine\event\Listener;
 use pocketmine\nbt\NBT;
 use pocketmine\block\Block;
@@ -218,7 +218,7 @@ class Implade extends PluginBase implements Listener {
 		   $death->setNameTagAlwaysVisible(true);
 		   $death->spawnToAll();
 		   $this->getScheduler()->scheduleDelayedTask(new DeathHumanDespawn($this, $death, $player), 1300); // Despawn the death humans in 1 minute!
-           $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
+            $player->sendMessage("§l§cMOVE LIKE PAIN, BE STEADY LIKE A DEATH");
 	  }
 	
         public function onMove(PlayerMoveEvent $ev): void{
@@ -229,7 +229,7 @@ class Implade extends PluginBase implements Listener {
              	         if($entity instanceof SoccerSlime){
                             $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
                             $entity->getLevel()->addParticle(new Ball($entity));
-                            $entity->setHealth(1000);
+                            $entity->setHealth(1000); // Health for soccer slime.
                             $entity->setMaxHealth(1000);
                             }
                         }
