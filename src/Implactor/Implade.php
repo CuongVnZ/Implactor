@@ -288,7 +288,6 @@ class Implade extends PluginBase implements Listener {
 			   ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);
-		    $soccerEntity->setHealth(1000);
                     $soccerEntity->spawnToAll();
 		}
 	
@@ -327,7 +326,7 @@ class Implade extends PluginBase implements Listener {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
-				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait a minute, Is it slime?");
+				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait, is that a baby slime?");
                 $sender->getLevel()->addSound(new FizzSound($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
@@ -665,6 +664,8 @@ class Implade extends PluginBase implements Listener {
 		    $ibook->setPageText(4, "§dWith this power on Trident, they can charge and fast when in the sea for trying to escape from opponents, auto return to their's holder after throwed far away and the impossible deadly one shot kill!\n§dThis is a extreme rarest item in-game server!");
 		    $ibook->setPageText(5, "§3Get a dangerous item from the sea. For staff who work on other servers, you can do some challanges and events for your players!\n\n§5- Zadezter\n§2P.S: Be a holder of Mysterious Legendary Trident and slain all opponents!");
 		    // [END] About Trident on Book Pages \\
+			
+                    $ibook->setPageText(6, "§bSoccer\n§2A sports and fun feature that you can kick a ball!\n\n§7A games for fun to play the soccer games! Whenever you do is, type /soccer in chat to spawn the, baby slime?! And let's go to get score §5GOAL§7!!!");
 		
 		    $ibook->setAuthor("§l§eZadezter");
 		    $player->getInventory()->addItem($ibook);
