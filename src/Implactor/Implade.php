@@ -46,7 +46,7 @@ use pocketmine\item\enchantment\{
 	    Enchantment, EnchantmentInstance
 };
 use pocketmine\level\sound\{
-	EndermanTeleportSound as Join, BlazeShootSound as Quit, GhastSound as DeathOne, AnvilBreakSound as DeathTwo, DoorBumpSound as Bot, FizzSound
+	EndermanTeleportSound as Join, BlazeShootSound as Quit, GhastSound as DeathOne, AnvilBreakSound as DeathTwo, DoorBumpSound as Bot, FizzSound as Book
 };
 use pocketmine\event\entity\{
 	EntitySpawnEvent, EntityDamageEvent, EntityDamageByEntityEvent
@@ -55,6 +55,7 @@ use pocketmine\event\player\{
 	PlayerPreLoginEvent, PlayerLoginEvent, PlayerJoinEvent, PlayerQuitEvent, PlayerDeathEvent, PlayerRespawnEvent, PlayerChatEvent, PlayerMoveEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle as Bloodful;
+use pocketmine\network\mcpe\protocol\LevelSoundEventPacket as BallSoundPacket;
 use pocketmine\level\particle\HugeExplodeParticle as Ball;
 use pocketmine\event\Listener;
 use pocketmine\nbt\NBT;
@@ -229,6 +230,9 @@ class Implade extends PluginBase implements Listener {
              	         if($entity instanceof SoccerSlime){
                             $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
                             $entity->getLevel()->addParticle(new Ball($entity));
+                            // Testing on sound while players kicked the soccer slime.
+                            $player->level->broadcastLevelSoundEvent($player, BallSoundPacket::SOUND_BALLOONPOP);
+                            $entity->level->broadcastLevelSoundEvent($entity, BallSoundPacket::SOUND_BALLOONPOP);
                             $entity->setHealth(1000); // Health for soccer slime.
                             $entity->setMaxHealth(1000);
                             }
@@ -292,7 +296,7 @@ class Implade extends PluginBase implements Listener {
 				   new FloatTag("", 0)
 			   ])
                     ]);
-		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);
+		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);   
 		    $soccerEntity->setScale(1.5); // Soccer slime scale.
                     $soccerEntity->spawnToAll();
 		}
@@ -332,8 +336,9 @@ class Implade extends PluginBase implements Listener {
 			if($sender instanceof Player){
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
+                                // Testing the sound when players spawned the soccer ball.
+				$sender->level->broadcastLevelSoundEvent($sender, LevelSoundEventPacket::SOUND_BALLOONPOP);
 				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait, is that a baby slime?");
-                $sender->getLevel()->addSound(new FizzSound($sender));
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
 	            return false;
@@ -367,7 +372,7 @@ class Implade extends PluginBase implements Listener {
 		 if($sender->hasPermission("implactor.book")){
 			 $this->getBook($sender);
 			 $sender->sendMessage("§6You has given a §aBook §bof §cImplactor§6!\n§fRead inside the book, §b". $sender->getPlayer()->getName() ."§f!");
-             $sender->getLevel()->addSound(new FizzSound($sender));
+             $sender->getLevel()->addSound(new Book($sender));
 		  }else{
 			 $sender->sendMessage("§cYou have no permission allowed to use §dBook §ccommand§e!");
 			 return false;
