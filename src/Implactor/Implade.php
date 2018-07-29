@@ -265,11 +265,12 @@ class Implade extends PluginBase implements Listener {
 					}
 				}
 				if(isset($this->wild[$entity->getName()])){
-                    unset($this->wild[$entity->getName()]);
-                    $ev->setCancelled(true);
-                    }
-				    $entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));      
+                                   unset($this->wild[$entity->getName()]);
+                                   $ev->setCancelled(true);
+                                }
+				  $entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));      
 			}
+			if($entity instanceof SoccerSlime) $ev->setCancelled(true);
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
 	  }
 	
@@ -292,6 +293,7 @@ class Implade extends PluginBase implements Listener {
 			   ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);
+		    $soccerEntity->setScale(1.5); // Soccer slime scale.
                     $soccerEntity->spawnToAll();
 		}
 	
