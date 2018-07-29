@@ -270,8 +270,11 @@ class Implade extends PluginBase implements Listener {
                                    $ev->setCancelled(true);
                                 }
 				  $entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));      
-			}
-			if($entity instanceof SoccerSlime) $ev->setCancelled(true);
+			if($entity instanceof SoccerSlime){
+                           $ev->setCancelled(true);
+                           $entity->level->broadcastLevelSoundEvent($entity, BallSoundPacket::SOUND_POP);
+                           }
+                        }
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
 	  }
 	
