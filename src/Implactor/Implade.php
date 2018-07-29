@@ -231,8 +231,7 @@ class Implade extends PluginBase implements Listener {
                             $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
                             $entity->getLevel()->addParticle(new Ball($entity));
                             // Testing on sound while players kicked the soccer slime.
-                            $player->level->broadcastLevelSoundEvent($player, BallSoundPacket::SOUND_BALLOONPOP);
-                            $entity->level->broadcastLevelSoundEvent($entity, BallSoundPacket::SOUND_BALLOONPOP);
+                            $entity->level->broadcastLevelSoundEvent($player, $entity, BallSoundPacket::SOUND_BALLOONPOP);
                             $entity->setHealth(1000); // Health for soccer slime.
                             $entity->setMaxHealth(1000);
                             }
@@ -297,7 +296,7 @@ class Implade extends PluginBase implements Listener {
 			   ])
                     ]);
 		    $soccerEntity = Entity::createEntity($entityBall, $soccerLevel, $soccerNBT);   
-		    $soccerEntity->setScale(1.5); // Soccer slime scale.
+		    $soccerEntity->setScale(1.8); // Soccer slime scale.
                     $soccerEntity->spawnToAll();
 		}
 	
@@ -337,7 +336,7 @@ class Implade extends PluginBase implements Listener {
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
                                 // Testing the sound when players spawned the soccer ball.
-				$sender->level->broadcastLevelSoundEvent($sender, LevelSoundEventPacket::SOUND_BALLOONPOP);
+				$sender->level->broadcastLevelSoundEvent($sender, BallSoundPacket::SOUND_BALLOONPOP);
 				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait, is that a baby slime?");
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
