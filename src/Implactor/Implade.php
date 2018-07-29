@@ -231,7 +231,7 @@ class Implade extends PluginBase implements Listener {
                             $entity->knockBack($player, 0, $player->getDirectionVector()->getX(), $player->getDirectionVector()->getZ(), 1); // Credited to xxNiceYT with a codes.
                             $entity->getLevel()->addParticle(new Ball($entity));
                             // Testing on sound while players kicked the soccer slime.
-                            $player->level->broadcastLevelSoundEvent($player, BallSoundPacket::SOUND_POP);
+                            $player->level->broadcastLevelSoundEvent($player, BallSoundPacket::SOUND_THROW);
                             }
                         }
                   }
@@ -269,12 +269,9 @@ class Implade extends PluginBase implements Listener {
                                    unset($this->wild[$entity->getName()]);
                                    $ev->setCancelled(true);
                                 }
-				  $entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));      
-			if($entity instanceof SoccerSlime){
-                           $ev->setCancelled(true);
-                           $entity->level->broadcastLevelSoundEvent($entity, BallSoundPacket::SOUND_POP);
-                           }
+				  $entity->getLevel()->addParticle(new Bloodful($entity, Block::get(152)));   
                         }
+			if($entity instanceof SoccerSlime) $ev->setCancelled(true);
 			if($entity instanceof DeathHuman) $ev->setCancelled(true);
 	  }
 	
@@ -337,7 +334,7 @@ class Implade extends PluginBase implements Listener {
 			if($sender->hasPermission("implactor.soccer")){
 				$this->soccerBall($sender, "SoccerSlime");
                                 // Testing the sound when players spawned the soccer ball.
-				$sender->level->broadcastLevelSoundEvent($sender, BallSoundPacket::SOUND_POP);
+				$sender->level->broadcastLevelSoundEvent($sender, BallSoundPacket::SOUND_THROW);
 				$sender->sendMessage("§eYou have spawned the §bsoccer ball§e! Wait, is that a baby slime?");
              }else{
                 $sender->sendMessage("§cYou have no permission allowed to use special §bBot §ccommand§e!");
